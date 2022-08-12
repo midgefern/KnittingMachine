@@ -15,6 +15,18 @@ making changes to the cam design in the technical sketch.
 
 gauge = 6.5;
 numNeedles = 5;
+tolerance = 0.15; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
+
+// ---
+// Hardware dimensions 
+// (actual measurements, no tolerances)
+
+// - pan head 6-32 machine screws
+screwDiam = 3.45;
+screwHeadDiam = 6.75; 
+screwHeadHeight = 2.55;
+nutWidth = 7.9;
+nutHeight = 2.8;
 
 // ---
 // Needle dimensions
@@ -39,9 +51,12 @@ NEEDLE_EXTENSION = 34.5;
 // Needle bed dimensions
 NEEDLE_BED_DEPTH = BACK_COVER + OOW_TRACK + WORKING_TRACK + HOLD_TRACK + SPONGE_BAR + COMB;
 needleBedHeight = BUTT_HEIGHT;
-needleSlotHeight = NEEDLE_LEG_HEIGHT * 2;
+needleSlotHeight = NEEDLE_LEG_HEIGHT * 2 + screwHeadHeight;
 needleSlotWidth = NEEDLE_WIDTH + 0.25; // add a small amount of clearance
 combWidth = gauge*2/3; // width of cutouts for stitch formation; this gives room for the thickness of the yarn looped around the needle when it pulls back into the slot, but has to balance leaving enough material for the remaining "teeth" to not be too fragile
+spongeThickness = 2.5;
+spongeBarThickness = needleSlotHeight - NEEDLE_LEG_HEIGHT - spongeThickness;
+//echo(spongeBarThickness);
 
 // ---
 // Carriage dimensions
@@ -51,16 +66,9 @@ camPlateHeight = 3; // plate behind the cams
 CAM_PLATE_WIDTH = 88 * 2; 
 CAM_PLATE_DEPTH = NEEDLE_BED_DEPTH - COMB;
 
-// ---
-// Hardware dimensions 
-// (actual measurements, no tolerances)
+railDepth = 8;
+railHeight = 8; // ???
 
-// - pan head 6-32 machine screws
-screwDiam = 3.45;
-screwHeadDiam = 6.75; 
-screwHeadHeight = 2.55;
-nutWidth = 7.9;
-nutHeight = 2.8;
 
 
 
