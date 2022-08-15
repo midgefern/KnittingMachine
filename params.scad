@@ -23,6 +23,7 @@ tolerance = 0.15; // allows a bit of room for parts that have to fit together; a
 
 // - pan head 6-32 machine screws
 screwDiam = 3.45;
+screwHeight = 18;
 screwHeadDiam = 6.75; 
 screwHeadHeight = 2.55;
 nutWidth = 7.9;
@@ -50,7 +51,7 @@ NEEDLE_EXTENSION = 34.5;
 // ---
 // Needle bed dimensions
 NEEDLE_BED_DEPTH = BACK_COVER + OOW_TRACK + WORKING_TRACK + HOLD_TRACK + SPONGE_BAR + COMB;
-needleBedHeight = BUTT_HEIGHT;
+needleBedHeight = BUTT_HEIGHT;// screwHeight + 2;
 needleSlotHeight = NEEDLE_LEG_HEIGHT * 2 + screwHeadHeight;
 needleSlotWidth = NEEDLE_WIDTH + 0.25; // add a small amount of clearance
 combWidth = gauge*2/3; // width of cutouts for stitch formation; this gives room for the thickness of the yarn looped around the needle when it pulls back into the slot, but has to balance leaving enough material for the remaining "teeth" to not be too fragile

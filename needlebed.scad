@@ -45,10 +45,17 @@ module combCutout() {
 }
 
 module frontAngle() {
-    translate([0, -NEEDLE_BED_DEPTH - needleBedHeight*1.65, -needleBedHeight/2])
-            rotate([30, 0, 0]) 
-                cube(BUTT_HEIGHT*3, center = true);
+    lastPoint = needleBedHeight/tan(60);
+    translate([0,-NEEDLE_BED_DEPTH - needleSlotHeight/2,-needleBedHeight - 1])
+    rotate([180,90,0])
+    linear_extrude(gauge + 1, center = true)
+    polygon(points = [[0,0],[-needleBedHeight,0],[0,-lastPoint]]);
 }
+
+module triangle() {
+    
+}
+
 
 needleBed();
 
