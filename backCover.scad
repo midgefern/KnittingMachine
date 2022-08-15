@@ -12,9 +12,14 @@ module backCover(screw = 0) {
     }
 }
 
-module backRail() {
-    translate([0,-BACK_COVER/2 + tolerance, railHeight/2])
-    cube([gauge, railDepth - tolerance*2, railHeight], center = true);
+module backRail(width = gauge, rounded = false) {
+    translate([0,-BACK_COVER/2 + tolerance, railHeight/2]) {
+        cube([width, railDepth - tolerance*2, railHeight], center = true);
+        if (rounded) {
+            translate([-width/2,0,0])
+            cylinder(railHeight, d = railDepth-tolerance*2, center = true);
+        }
+    }
 }
 
 for(i = [0:numNeedles-1]) {

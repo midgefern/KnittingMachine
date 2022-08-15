@@ -12,9 +12,14 @@ module spongeBar(screw = 0) {
     }
 }
 
-module frontRail() {
-    translate([0,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR/2, railHeight/2])
-    cube([gauge, railDepth - tolerance*2, railHeight], center = true);
+module frontRail(width = gauge, rounded = false) {
+    translate([0,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR/2, railHeight/2]) {
+        cube([width, railDepth - tolerance*2, railHeight], center = true);
+        if (rounded) {
+            translate([-width/2,0,0])
+            cylinder(railHeight, d = railDepth-tolerance*2, center = true);
+        }
+    }
 }
 
 for(i = [0:numNeedles-1]) {

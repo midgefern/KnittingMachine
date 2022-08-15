@@ -44,11 +44,11 @@ module combCutout() {
         cylinder(h = needleBedHeight * 2 + 1, r = combWidth/2, $fn = 25, center = true);
 }
 
-module frontAngle() {
+module frontAngle(width = gauge) {
     lastPoint = needleBedHeight/tan(60);
     translate([0,-NEEDLE_BED_DEPTH - needleSlotHeight/2,-needleBedHeight - 1])
     rotate([180,90,0])
-    linear_extrude(gauge + 1, center = true)
+    linear_extrude(width + 1, center = true)
     polygon(points = [[0,0],[-needleBedHeight,0],[0,-lastPoint]]);
 }
 
