@@ -4,7 +4,7 @@ include<needlebedScrews.scad>;
 module backCover(screw = 0) {
     union () {
         difference() {
-            translate([0,-BACK_COVER/2 + tolerance, -((screwHeadHeight + 1) - tolerance)/2])
+            translate([0,-BACK_COVER/2, -((screwHeadHeight + 1) - tolerance)/2])
             cube([gauge, BACK_COVER - tolerance, (screwHeadHeight + 1) - tolerance], center = true);
             screwHoles(screw);
         }
@@ -12,8 +12,8 @@ module backCover(screw = 0) {
     }
 }
 
-module backRail(width = gauge, rounded = false) {
-    translate([0,-BACK_COVER/2 + tolerance, railHeight/2]) {
+module backRail(width = gauge, rounded = false, tolerance = tolerance) {
+    translate([0,-BACK_COVER/2, railHeight/2]) {
         cube([width, railDepth - tolerance*2, railHeight], center = true);
         if (rounded) {
             translate([-width/2,0,0])

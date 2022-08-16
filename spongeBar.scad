@@ -12,7 +12,7 @@ module spongeBar(screw = 0) {
     }
 }
 
-module frontRail(width = gauge, rounded = false) {
+module frontRail(width = gauge, rounded = false, tolerance = tolerance) {
     translate([0,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR/2, railHeight/2]) {
         cube([width, railDepth - tolerance*2, railHeight], center = true);
         if (rounded) {

@@ -14,8 +14,8 @@ making changes to the cam design in the technical sketch.
 */
 
 gauge = 6.5;
-numNeedles = 5;
-tolerance = 0.15; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
+numNeedles = 25;
+tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
 
 // ---
 // Hardware dimensions 
@@ -47,6 +47,7 @@ HOLD_TRACK = 8;
 SPONGE_BAR = 12;
 COMB = 29;
 NEEDLE_EXTENSION = 34.5;
+YARN_DEPOSIT_Y = 155.1;
 
 // ---
 // Needle bed dimensions
@@ -65,12 +66,12 @@ spongeBarThickness = needleSlotHeight - NEEDLE_LEG_HEIGHT - spongeThickness;
 camHeight = BUTT_HEIGHT; // thickness of the tracks the needles ride along
 camPlateHeight = 3; // plate behind the cams
 CAM_PLATE_WIDTH = 88 * 2; 
-CAM_PLATE_DEPTH = NEEDLE_BED_DEPTH - COMB;
+CAM_PLATE_DEPTH = NEEDLE_BED_DEPTH - COMB + 6;
 
 railDepth = 8;
 railHeight = 8; // ???
-
-
+xOffset = 19.5;
+vCamScrews = [[34-xOffset, -90.25, 0],[58-xOffset, -74.25, 0],[86-xOffset,-90.25, 0]];
 
 
 

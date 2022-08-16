@@ -36,5 +36,3 @@ module connector(top = 7, diam = 3, pinWidth = 4, plugDiam = 6, tolerance = 0) {
         }
 }
 }
-
-
