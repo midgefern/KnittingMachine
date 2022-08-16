@@ -21,11 +21,15 @@ module carriageRest() {
             }
         }
         translate([gauge/2-CAM_PLATE_WIDTH/4,0,0]) {
-            
             frontRail(CAM_PLATE_WIDTH/2, rounded = true);
             backRail(CAM_PLATE_WIDTH/2, rounded = true);
         }
     }
 }
 
-carriageRest();
+translate([-gauge, 0, 0])
+#carriageRest();
+
+//translate([gauge*numNeedles, 0, 0])
+//mirror([1,0,0])
+//#carriageRest();
