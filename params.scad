@@ -35,6 +35,7 @@ nutHeight = 2.8;
 BUTT_HEIGHT = 15;
 NEEDLE_WIDTH = 1.25;
 NEEDLE_LEG_HEIGHT = 1.85;
+HOOK_DIAM = 3.5;
 
 // ---
 // Needle Bed Zones
@@ -47,7 +48,6 @@ HOLD_TRACK = 8;
 SPONGE_BAR = 12;
 COMB = 29;
 NEEDLE_EXTENSION = 34.5;
-YARN_DEPOSIT_Y = 155.1;
 
 // ---
 // Needle bed dimensions
@@ -58,7 +58,8 @@ needleSlotWidth = NEEDLE_WIDTH + 0.25; // add a small amount of clearance
 combWidth = gauge*2/3; // width of cutouts for stitch formation; this gives room for the thickness of the yarn looped around the needle when it pulls back into the slot, but has to balance leaving enough material for the remaining "teeth" to not be too fragile
 spongeThickness = 2.5;
 spongeBarThickness = needleSlotHeight - NEEDLE_LEG_HEIGHT - spongeThickness;
-//echo(spongeBarThickness);
+YARN_DEPOSIT_Y = -155.1;
+YARN_DEPOSIT_Z = -needleSlotHeight + HOOK_DIAM;
 
 // ---
 // Carriage dimensions
