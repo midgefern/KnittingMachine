@@ -64,7 +64,7 @@ spongeBarThickness = needleSlotHeight - NEEDLE_LEG_HEIGHT - spongeThickness;
 // Carriage dimensions
 // refer to technical sketch
 camHeight = BUTT_HEIGHT; // thickness of the tracks the needles ride along
-camPlateHeight = 3; // plate behind the cams
+camPlateHeight = 4; // plate behind the cams
 CAM_PLATE_WIDTH = 88 * 2; 
 CAM_PLATE_DEPTH = NEEDLE_BED_DEPTH - COMB + 6;
 
