@@ -3,11 +3,13 @@ include<assembly.scad>;
 include<camplate.scad>;
 
 module stripperPlate() {
+    
     $fn = 50;
+    color("blue")
     hull() {
         translate([-CAM_PLATE_WIDTH/2, 0, -camPlateHeight]) {
         //cube([CAM_PLATE_WIDTH,NEEDLE_EXTENSION,1]);
-        cube([CAM_PLATE_WIDTH,1,camPlateHeight]);
+        cube([CAM_PLATE_WIDTH,1,camPlateHeight +1]);
         }
         translate([-CAM_PLATE_WIDTH/4,NEEDLE_EXTENSION-4,-camPlateHeight/2])
          sphere(d = camPlateHeight/2);

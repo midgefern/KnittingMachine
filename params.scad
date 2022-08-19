@@ -24,8 +24,8 @@ tolerance = 0.2; // allows a bit of room for parts that have to fit together; ad
 // - pan head 6-32 machine screws
 screwDiam = 3.45;
 screwHeight = 18;
-screwHeadDiam = 6.75; 
-screwHeadHeight = 2.55;
+screwHeadDiam = 6.75 + tolerance * 2; 
+screwHeadHeight = 2.55 + tolerance * 2;
 nutWidth = 7.9;
 nutHeight = 2.8;
 

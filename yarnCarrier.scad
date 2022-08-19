@@ -21,43 +21,43 @@ difference() {
 
 
 module yarnCarrierPlate() {
-//    hull() {
-//        // main
-//        translate([0,-(NEEDLE_BED_DEPTH - COMB + 6),camHeight + camPlateHeight])
-//        cube([CAM_PLATE_WIDTH, NEEDLE_BED_DEPTH - COMB + 6, camPlateHeight]);
-//        // rounded edge
-//        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance + camPlateHeight/2),camHeight + camPlateHeight * 1.5])
-//        rotate([0,90,0])
-//        cylinder(CAM_PLATE_WIDTH, d = camPlateHeight, center = true, $fn = 30);
-//    }
+    hull() {
+        // main
+        translate([0,-(NEEDLE_BED_DEPTH - COMB + 6),camHeight + camPlateHeight])
+        cube([CAM_PLATE_WIDTH, SPONGE_BAR + 6, camPlateHeight]);
+        // rounded edge
+        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance + camPlateHeight/2),camHeight + camPlateHeight * 1.5])
+        rotate([0,90,0])
+        cylinder(CAM_PLATE_WIDTH, d = camPlateHeight, center = true, $fn = 30);
+    }
     
     hull() {
         // overhang
         translate([0,-(NEEDLE_BED_DEPTH),2])
         cube([CAM_PLATE_WIDTH, COMB - 6 - tolerance, camPlateHeight]);
         
-//        // rounded edge
-//        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance + camPlateHeight/2),camHeight + camPlateHeight * 1.5])
-//        rotate([0,90,0])
-//        cylinder(CAM_PLATE_WIDTH, d = camPlateHeight, center = true, $fn = 30);
-        
-         // flat edge
+        // rounded edge
         translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance + camPlateHeight/2),camHeight + camPlateHeight * 1.5])
-        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight], center = true);
+        rotate([0,90,0])
+        cylinder(CAM_PLATE_WIDTH, d = camPlateHeight, center = true, $fn = 30);
         
+//         // flat edge
+//        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance + camPlateHeight/2),camHeight + camPlateHeight * 1.5])
+//        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight], center = true);
+//        
         
-        // rounded corner
-        translate([10,-(NEEDLE_BED_DEPTH),2])
-        cylinder(camPlateHeight, r = 10, center = false);
-        
-        //rounded corner
-        translate([CAM_PLATE_WIDTH - 10,-(NEEDLE_BED_DEPTH),2])
-        cylinder(camPlateHeight, r = 10, center = false);
-        
-        // angled front
-        translate([CAM_PLATE_WIDTH/4,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),
-        + 2])
-        cube([CAM_PLATE_WIDTH/2, NEEDLE_EXTENSION, camPlateHeight]);
+//        // rounded corner
+//        translate([10,-(NEEDLE_BED_DEPTH),2])
+//        cylinder(camPlateHeight, r = 10, center = false);
+//        
+//        //rounded corner
+//        translate([CAM_PLATE_WIDTH - 10,-(NEEDLE_BED_DEPTH),2])
+//        cylinder(camPlateHeight, r = 10, center = false);
+//        
+//        // angled front
+//        translate([CAM_PLATE_WIDTH/4,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),
+//        + 2])
+//        cube([CAM_PLATE_WIDTH/2, NEEDLE_EXTENSION, camPlateHeight]);
         
 //        // rounded edge
 //        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),camPlateHeight/2 + 2])
@@ -66,7 +66,7 @@ module yarnCarrierPlate() {
 //        
         // flat edge
         translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),camPlateHeight/2 + 2])
-        cube([CAM_PLATE_WIDTH/2, camPlateHeight, camPlateHeight], center = true, $fn = 30);
+        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight], center = true);
     }
     
     
