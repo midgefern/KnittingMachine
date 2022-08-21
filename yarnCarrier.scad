@@ -1,20 +1,15 @@
 include<params.scad>;
+include<assembly.scad>;
+include<camplate.scad>;
 
 $fn = 50;
 
 // toggle which sections will render/export
-exYarnCarrier = false;
-exStripperPlate = false;
+exYarnCarrier = true;;
+exStripperPlate = true;
 exYarnFeeder = true;
 
 
-if (exYarnCarrier) {
-    difference() {
-        color("orchid")
-        yarnCarrier();
-        yarnCarrierCutout();
-    }
-}
 
 if (exStripperPlate) {
     difference() {
@@ -31,15 +26,35 @@ if (exStripperPlate) {
         
         
         yarnCarrierCutout();
+        
+        carriageScrews();
     }
 }
 
 if (exYarnFeeder) {
     translate([CAM_PLATE_WIDTH/2,0,0])
-    yarnFeeder();
     difference() {
-    yarnFeederPlate();
-    carriageScrews();
+        yarnFeeder();
+        translate([-CAM_PLATE_WIDTH/2,0,0])
+        yarnSlot();
+    }
+    difference() {
+        yarnFeederPlate();
+        yarnSlot();
+        carriageScrews();
+    }
+}
+
+if (exYarnCarrier) {
+    difference() {
+        color("orchid", 0.5)
+        
+        yarnCarrier();
+        yarnCarrierCutout();
+translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2 + 1])
+        cube([CAM_PLATE_WIDTH + 2, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance) + 2, camPlateHeight + 2], center = true);        
+        carriageScrews();
+        
     }
 }
 
@@ -65,8 +80,8 @@ module yarnCarrier() {
         cylinder(CAM_PLATE_WIDTH, d = camPlateHeight, center = true, $fn = 30);
         
         // flat edge
-        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),camPlateHeight/2 + 2])
-        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight], center = true);
+        translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),camPlateHeight/2 + 2.25])
+        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight+1], center = true);
     }
 }
 
@@ -113,7 +128,7 @@ module stripperPlateNose() {
         // line up with front edge of yarn carrier
         translate([0,-(camPlateHeight + 1.5),needleSlotHeight + 2])
         rotate([0,90,0])
-        cylinder(CAM_PLATE_WIDTH, d = needleSlotHeight + 1.5, center = true, $fn = 50);
+        cylinder(CAM_PLATE_WIDTH, d = needleSlotHeight + 2.5, center = true, $fn = 50);
     }
 }
 
@@ -122,11 +137,11 @@ module yarnFeeder() {
         // yarn guide
         translate([0,YARN_DEPOSIT_Y,YARN_DEPOSIT_Z + 1.5])
         rotate([0,0,-90 + 15])
-        rotate_extrude(angle= 330, convexity = 10, $fn = 100)
+        rotate_extrude(convexity = 10, $fn = 100)
         translate([3, 0, 0])
         hull() {
             circle(r = 1.5, $fn = 100);
-            translate([6,2,0])
+            translate([6,6,0])
             circle(r = 1.5, $fn = 100);
         }
         // lowest surface of guide should hit at jussst the right spot, but subtract the surface of the stripper plate to get correct angle in case yarn guide shape dips too low
@@ -135,26 +150,106 @@ module yarnFeeder() {
     }
 }
 
+module yarnSlot() {
+    difference() {
+        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y-15,0])
+        cube([1.5,30,20], center = true);
+    }
+}
+
 module yarnFeederPlate() {
     translate([0,0,2])
     color("red")
     difference() {
-        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y + 2,-screwHeadHeight/2 - tolerance])
-        cube([CAM_PLATE_WIDTH/2, 21.25, screwHeadHeight], center = true);
+        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2])
+        cube([CAM_PLATE_WIDTH, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance), camPlateHeight], center = true);
         translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,0])
-        cylinder(h= (screwHeadHeight + 1)*2, d = 19 , center = true);
+        cylinder(h= (5)*2, d = 19 , center = true);
     }
 }
 
-module yarnFeederCutout() {
-    translate([CAM_PLATE_WIDTH/2, -(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight + 2), camHeight])
-    cylinder(h = camHeight*2 + 2, r = (NEEDLE_EXTENSION + camPlateHeight + 2) - (YARN_DEPOSIT_Y - NEEDLE_BED_DEPTH) + 5, center = true, $fn = 56);
-}
+
 
 module carriageScrews() {
-    // yarn feeder screws
-    translate([CAM_PLATE_WIDTH/4+screwHeadDiam*1.5,YARN_DEPOSIT_Y,-1.25]) 
-    cylinder(h= screwHeight, r = screwDiam, center = false);
-    translate([CAM_PLATE_WIDTH/4+screwHeadDiam*1.5,YARN_DEPOSIT_Y,-1.25])  
-    #cylinder(h= screwHeadHeight, r = screwHeadDiam, center = false); 
+
+    // attach to front of camplate
+    translate([screwHeadDiam*1.5,-(NEEDLE_BED_DEPTH - COMB - 6),camHeight + camPlateHeight*2]) 
+    #cylinder(h= 12*2, d = screwDiam, center = true);
+    
+    translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB - 6),camHeight + camPlateHeight*2]) 
+    #cylinder(h= 12*2, d = screwDiam, center = true);
+    
+    translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5,-(NEEDLE_BED_DEPTH - COMB - 6),camHeight + camPlateHeight*2]) 
+    #cylinder(h= 12*2, d = screwDiam, center = true);
+    
+    // attach stripper plate 
+    // this spot is tiny so we need to use smaller (#4) screws for this!
+    translate([0,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight - 0.25),0]) {
+        // screw hole
+        translate([0,0,2]) {
+    
+            translate([screwHeadDiam*1.5,0,0])
+            #cylinder(h= 12, d = 2.8, center = true);
+            
+            translate([screwHeadDiam*1.5 + 35,0,0])
+            #cylinder(h= 12, d = 2.8, center = true);
+            
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5 - 35,0,0])
+            #cylinder(h= 12, d = 2.8, center = true);
+            
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5,0,0])
+            #cylinder(h= 12, d = 2.8, center = true);
+        
+        }
+        // countersink
+        translate([0,0,6.5 + screwHeadHeight/2]) {
+            
+            translate([screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeadHeight, d = screwHeadDiam, center = true);
+ 
+            translate([screwHeadDiam*1.5 + 35,0,0])
+            #cylinder(h= screwHeadHeight, d = screwHeadDiam, center = true);
+
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5 -35,0,0])
+            #cylinder(h= screwHeadHeight, d = screwHeadDiam, center = true);
+
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeadHeight, d = screwHeadDiam, center = true);
+        }
+    }         
+    
+    // attach yarn feeder plate from underneath
+    
+    translate([0,-(NEEDLE_BED_DEPTH - COMB/2),0]) {
+        
+        translate([0,0,2 - tolerance]) {
+            // screw holes
+            translate([screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeight-2, d = 2.8, center = false);
+            
+            translate([screwHeadDiam*1.5 + 35,0,0])
+            #cylinder(h= screwHeight-2, d = 2.8, center = false);
+            
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5 - 35,0,0])
+            #cylinder(h= screwHeight-2, d = 2.8, center = false);
+            
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeight-2, d = 2.8, center = false);
+        
+        
+            // countersink
+            translate([screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeadHeight + tolerance, d = screwHeadDiam, center = false);
+ 
+            translate([screwHeadDiam*1.5 + 35,0,0])
+            #cylinder(h= screwHeadHeight + tolerance, d = screwHeadDiam, center = false);
+
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5 -35,0,0])
+            #cylinder(h= screwHeadHeight + tolerance, d = screwHeadDiam, center = false);
+
+            translate([CAM_PLATE_WIDTH - screwHeadDiam*1.5,0,0])
+            #cylinder(h= screwHeadHeight + tolerance, d = screwHeadDiam, center = false);
+        }
+    }         
+        
 }
