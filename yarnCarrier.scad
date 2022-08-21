@@ -168,8 +168,6 @@ module yarnFeederPlate() {
     }
 }
 
-
-
 module carriageScrews() {
 
     // attach to front of camplate
