@@ -1,11 +1,17 @@
 include<params.scad>;
-include<assembly.scad>;
+//include<assembly.scad>;
 use<assembly.scad>;
+use<yarnCarrier.scad>;
 
-backPlate();
-camRails();
-upthrowCam();
-vCam();
+difference() {
+    union() {
+        backPlate();
+        camRails();
+        upthrowCam();
+    }
+    carriageScrews();
+}
+//vCam();
 
 module backPlate() {
     color("magenta")
@@ -55,12 +61,12 @@ module vCam() {
     difference () {
         union() {
             translate([0, -97, 1])
-            linear_extrude(camHeight)
+            linear_extrude(camHeight, $fn = 100)
             import("SVG/T1.svg");
             
             translate([CAM_PLATE_WIDTH, -97, 1])
             mirror([1,0,0])
-            linear_extrude(camHeight)
+            linear_extrude(camHeight, $fn = 100)
             import("SVG/T1.svg");
         }
         
@@ -70,8 +76,9 @@ module vCam() {
         camPlateScrews();
         
         translate([58-xOffset,-90,0])
+        mirror([1,0,0])
         linear_extrude(3)
-        #text("T7", size = 6);
+        #text("T1", size = 6);
     }
 }
 

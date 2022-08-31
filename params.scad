@@ -29,6 +29,12 @@ screwHeadHeight = 2.55 + tolerance * 2;
 nutWidth = 7.9;
 nutHeight = 2.8;
 
+// - pan head 4-40 machine screws
+screwDiamSm = 2.79;
+screwHeightSm = 14.62;
+screwHeadHeightSm = 2.41 + tolerance * 2;
+screwHeadDiamSm = 5.21 + tolerance * 2;
+
 // ---
 // Needle dimensions
 // - Brother needles
@@ -52,7 +58,7 @@ NEEDLE_EXTENSION = 34.5;
 // ---
 // Needle bed dimensions
 NEEDLE_BED_DEPTH = BACK_COVER + OOW_TRACK + WORKING_TRACK + HOLD_TRACK + SPONGE_BAR + COMB;
-needleBedHeight = BUTT_HEIGHT;// screwHeight + 2;
+needleBedHeight = screwHeight + 2;
 needleSlotHeight = NEEDLE_LEG_HEIGHT * 2 + screwHeadHeight;
 needleSlotWidth = NEEDLE_WIDTH + 0.25; // add a small amount of clearance
 combWidth = gauge*2/3; // width of cutouts for stitch formation; this gives room for the thickness of the yarn looped around the needle when it pulls back into the slot, but has to balance leaving enough material for the remaining "teeth" to not be too fragile
@@ -60,6 +66,7 @@ spongeThickness = 2.5;
 spongeBarThickness = needleSlotHeight - NEEDLE_LEG_HEIGHT - spongeThickness;
 YARN_DEPOSIT_Y = -155.1;
 YARN_DEPOSIT_Z = -needleSlotHeight + HOOK_DIAM;
+connectorOffset = 20;
 
 // ---
 // Carriage dimensions
