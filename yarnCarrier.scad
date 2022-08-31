@@ -81,23 +81,26 @@ module yarnCarrier() {
         
         // flat edge
         translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight),camPlateHeight/2 + 2.25])
-        cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight+1], center = true);
+        #cube([CAM_PLATE_WIDTH, camPlateHeight, camPlateHeight+1], center = true);
     }
 }
 
 module yarnCarrierCutout() {
         hull() {
-            translate([CAM_PLATE_WIDTH/2,0,0])
-            yarnFeeder();
+//            translate([CAM_PLATE_WIDTH/2,0,0])
+//            yarnFeeder();
             
+            // back
             translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,(camHeight + camPlateHeight*2)])
-            cylinder(h = 1, r1 = 15, r2 = 32, center = true);
-                
+            cylinder(h = 100, r1 = 15, r2 = 32, center = true);
+             
+         // wide cone front   
             translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y - 35,(camHeight + camPlateHeight)/2])
-            cylinder(h = camHeight + camPlateHeight, r1 = 20, r2 = 40, center = true);
+            cylinder(h = camHeight + camPlateHeight, r = (CAM_PLATE_WIDTH - 55*2)/2, center = true);
                 
-            translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y - 35,-camPlateHeight])
-            cylinder(h = camHeight + camPlateHeight*2, r = 10, center = true);
+//            // small frontmost
+//            translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y - 35,-camPlateHeight])
+//            cylinder(h = camHeight + camPlateHeight*2, r = 10, center = true);
         }
 }
 
@@ -157,15 +160,37 @@ module yarnSlot() {
     }
 }
 
+//module yarnFeederPlate() {
+//    translate([0,0,2])
+//    color("red")
+//    difference() {
+//        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2])
+//        cube([CAM_PLATE_WIDTH, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance), camPlateHeight], center = true);
+//        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,0])
+//        cylinder(h= (5)*2, d = 19 , center = true);
+//    }
+//}
+
 module yarnFeederPlate() {
-    translate([0,0,2])
-    color("red")
     difference() {
-        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2])
-        cube([CAM_PLATE_WIDTH, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance), camPlateHeight], center = true);
-        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,0])
-        cylinder(h= (5)*2, d = 19 , center = true);
+    translate([0,0,2])
+    color("red") {
+        union() {
+            translate([55/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2])
+            cube([55, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance), camPlateHeight], center = true);
+        translate([CAM_PLATE_WIDTH - 55/2,YARN_DEPOSIT_Y + 2 + tolerance,camPlateHeight/2])
+            cube([55, (NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight*1.5)-(NEEDLE_BED_DEPTH - COMB + 6 + tolerance), camPlateHeight], center = true);
+            hull() {
+                translate([CAM_PLATE_WIDTH/2,-(NEEDLE_BED_DEPTH - COMB + 11 + tolerance),camPlateHeight/2])
+                cube([CAM_PLATE_WIDTH/2, 10, camPlateHeight], center = true);
+                    translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,camPlateHeight/2])
+                cylinder(h= camPlateHeight, d = 25 , center = true);
+            }
+        }
     }
+        translate([CAM_PLATE_WIDTH/2,YARN_DEPOSIT_Y,2])
+        cylinder(h= (5)*2, d = 19 , center = true);
+}
 }
 
 module carriageScrews() {
