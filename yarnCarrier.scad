@@ -5,13 +5,33 @@ include<params.scad>;
 $fn = 50;
 
 // toggle which sections will render/export
-exYarnCarrier = true;;
+//exYarnCarrier = true;;
 exStripperPlate = true;
-exYarnFeeder = true;
+//exYarnFeeder = true;
 
 
 
 if (exStripperPlate) {
+    difference() {
+        translate([CAM_PLATE_WIDTH/2,-NEEDLE_BED_DEPTH - NEEDLE_EXTENSION - tolerance * 2,-needleSlotHeight]) {
+            union() {
+                stripperPlate();
+                stripperPlateNose();
+            }
+        }
+        translate([-1,-tolerance, -tolerance])
+        // flat edge
+        translate([0,-(NEEDLE_BED_DEPTH + NEEDLE_EXTENSION + camPlateHeight + 2), 2])
+        cube([CAM_PLATE_WIDTH + 4, camPlateHeight + 2, camPlateHeight + 2], center = false);
+        
+        
+        yarnCarrierCutout();
+        
+        carriageScrews();
+    }
+    
+    translate([CAM_PLATE_WIDTH, 0, 0])
+    mirror([1,0,0])
     difference() {
         translate([CAM_PLATE_WIDTH/2,-NEEDLE_BED_DEPTH - NEEDLE_EXTENSION - tolerance * 2,-needleSlotHeight]) {
             union() {
@@ -105,19 +125,22 @@ module yarnCarrierCutout() {
 }
 
 module stripperPlate() {
+    $fn = 50;
     color("blue")
     hull() {
         // outer L
         translate([-CAM_PLATE_WIDTH/2,NEEDLE_EXTENSION-4,-camPlateHeight])
          sphere(d = camPlateHeight/2);
-//        // outer R
-//        translate([CAM_PLATE_WIDTH/2,NEEDLE_EXTENSION-4,-camPlateHeight/2])
-//         sphere(d = camPlateHeight/2);
         
-        translate([-camPlateHeight - 2,NEEDLE_EXTENSION-camPlateHeight/2,-camPlateHeight])
+        // mid L
+         translate([-camPlateHeight * 2.5,NEEDLE_EXTENSION-camPlateHeight/2,-camPlateHeight])
          sphere(d = camPlateHeight/2);
-//        translate([CAM_PLATE_WIDTH/4 - 55,NEEDLE_EXTENSION-camPlateHeight/2,-camPlateHeight/2])
-//         sphere(d = camPlateHeight);
+        
+        // inner L
+        translate([-camPlateHeight/2,NEEDLE_EXTENSION-camPlateHeight/2-2,-camPlateHeight])
+         sphere(d = camPlateHeight/2);
+        
+//        front rounded edge
         translate([-CAM_PLATE_WIDTH/2 + 55/2, -(camPlateHeight)/2, -(camPlateHeight + 1)/2])
     rotate([0,90,0])
         cylinder(55, d = camPlateHeight + 1, center = true, $fn = 30);
