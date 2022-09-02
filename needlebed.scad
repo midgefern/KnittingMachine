@@ -53,8 +53,11 @@ module frontAngle(width = gauge) {
     polygon(points = [[0,0],[-needleBedHeight,0],[0,-lastPoint]]);
 }
 
-module triangle() {
-    
+module spongeBarSpacers() {
+    translate([gauge/2,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR - 2, -needleSlotHeight/2 - 1 - tolerance])
+    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
+    translate([gauge/2,-(NEEDLE_BED_DEPTH-COMB) + 2, -needleSlotHeight/2 - 1 - tolerance])
+    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
 }
 
 
@@ -67,9 +70,11 @@ module needleBed() {
           if (i==0) {
             // connector
             difference() {
-            translate([gauge*i, 0, 0])
+            translate([gauge*i, 0, 0]) {
 //                    color("pink", 0.5)
-            needleUnit(screw = 1);
+                needleUnit(screw = 1);
+                spongeBarSpacers();
+            }
             translate([-gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
             #connector();
             translate([-gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
@@ -77,8 +82,10 @@ module needleBed() {
               }
           } else {
               // no connector
-              translate([gauge*i, 0, 0])
+              translate([gauge*i, 0, 0]) {
               needleUnit(screw = 1); 
+              spongeBarSpacers();
+              }
           }
             
         } else if (i==1 || i==numNeedles-1) {
