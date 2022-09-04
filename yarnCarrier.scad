@@ -124,9 +124,9 @@ module yarnCarrierCutout() {
         }
 }
 
-module stripperPlate() {
+module stripperPlate(col = "blue") {
     $fn = 50;
-    color("blue")
+    color(col)
     hull() {
         // outer L
         translate([-CAM_PLATE_WIDTH/2,NEEDLE_EXTENSION-4,-camPlateHeight])
@@ -137,8 +137,8 @@ module stripperPlate() {
          sphere(d = camPlateHeight/2);
         
         // inner L
-        translate([-camPlateHeight/2,NEEDLE_EXTENSION-camPlateHeight/2-2,-camPlateHeight])
-         sphere(d = camPlateHeight/2);
+        translate([-camPlateHeight * 1.5 - 0.5,NEEDLE_EXTENSION-camPlateHeight * 1.5 -2,-camPlateHeight])
+         cylinder(h = camPlateHeight/2, d = camPlateHeight*3, center = true);
         
 //        front rounded edge
         translate([-CAM_PLATE_WIDTH/2 + 55/2, -(camPlateHeight)/2, -(camPlateHeight + 1)/2])
@@ -146,6 +146,8 @@ module stripperPlate() {
         cylinder(55, d = camPlateHeight + 1, center = true, $fn = 30);
     }
 }
+
+//stripperPlate("lime");
 
 module stripperPlateNose() {
     color("blue")
@@ -169,7 +171,7 @@ module stripperPlateNose() {
 module yarnFeeder() {
     difference() {
         // yarn guide
-        translate([0,YARN_DEPOSIT_Y,YARN_DEPOSIT_Z + 1.5])
+        translate([0,YARN_DEPOSIT_Y,YARN_DEPOSIT_Z + 1.5 + tolerance])
         rotate([0,0,-90 + 15])
         rotate_extrude(convexity = 10, $fn = 100)
         translate([3, 0, 0])
