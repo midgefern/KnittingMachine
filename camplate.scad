@@ -3,33 +3,34 @@ include<params.scad>;
 use<assembly.scad>;
 use<yarnCarrier.scad>;
     
-    difference() {
-        union() {
-            backPlate();
-            intersection () {
-                color("purple")
-                hull() { // rounded leading edges
-                    translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
-                    cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
-                    
-                    translate([camHeight/2,-CAM_PLATE_DEPTH,0])
-                    cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
-                    
-                    translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                    rotate([90,0,0])
-                    cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-                    
-                    translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                    rotate([90,0,0])
-                    cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-                }
-                camRails();
-            }
-            upthrowCam();
-        }
-        carriageScrews();
-    }
-//vCam();
+//difference() {
+//    union() {
+//        backPlate();
+//        intersection () {
+//            color("purple")
+//            hull() { // rounded leading edges
+//                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
+//                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
+//                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//                
+//                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//            }
+//            camRails();
+//        }
+//        upthrowCam();
+//    }
+//    carriageScrews();
+//}
+
+vCam(t = 7); // cams 1 - 7
 
 module backPlate() {
     color("magenta")
@@ -95,18 +96,18 @@ module upthrowCam() {
     }
 }
 
-module vCam() {
+module vCam(t = 1) {
     color("lime")
     difference () {
         union() {
             translate([0, -97, 1])
-            linear_extrude(camHeight, $fn = 100)
-            import("SVG/T1.svg");
+            linear_extrude(camHeight - 1, $fn = 100)
+            import(str("SVG/T",t,".svg"));
             
             translate([CAM_PLATE_WIDTH, -97, 1])
             mirror([1,0,0])
-            linear_extrude(camHeight, $fn = 100)
-            import("SVG/T1.svg");
+            linear_extrude(camHeight - 1, $fn = 100)
+            import(str("SVG/T",t,".svg"));
         }
         
         camPlateScrews();
@@ -117,7 +118,7 @@ module vCam() {
         translate([58-xOffset,-90,0])
         mirror([1,0,0])
         linear_extrude(3)
-        #text("T1", size = 6);
+        #text(str("T",t), size = 6);
     }
 }
 
