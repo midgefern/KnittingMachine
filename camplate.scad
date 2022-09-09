@@ -30,7 +30,7 @@ difference() {
     carriageScrews();
 }
 
-vCam(t = 2); // cams 1 - 7
+//vCam(t = 2); // cams 1 - 7
 
 module backPlate() {
     color("magenta")
@@ -75,11 +75,15 @@ module camRails() {
 module camRailsInlet() {
     // cutout shape to round off entry to rail track
     difference() {
-        cube([railDepth/2,railDepth*2, camHeight], center = true);
+        cube([railDepth/2,railDepth*2, camHeight + railDepth/2], center = true);
         translate([railDepth/2,railDepth - tolerance * 2, 0])
-        cylinder(h = camHeight + 2, d = railDepth, $fn = 50, center = true);
+        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
         translate([railDepth/2,-railDepth + tolerance*2, 0])
-        cylinder(h = camHeight + 2, d = railDepth, $fn = 50, center = true);
+        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
+        
+        rotate([90,0,0])
+        translate([railDepth/2 - tolerance, camHeight - railDepth/2, 0])
+        cylinder(CAM_PLATE_DEPTH, d = railDepth + tolerance * 2, center = true, $fn = 50);
     }
 }
 
