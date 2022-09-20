@@ -2,7 +2,7 @@ include<params.scad>;
 use<needlebedScrews.scad>;
 use<connector.scad>;
 
-module needleUnit() { //(screw = 0) {
+module needleUnit() {
     difference() {
         needleBase();
         needleSlot();
@@ -10,7 +10,6 @@ module needleUnit() { //(screw = 0) {
         spongeBarCutout();
         combCutout();
         frontAngle();
-//        screwHoles(screw);
     }
 }
 
@@ -55,9 +54,9 @@ module frontAngle(width = gauge) {
 
 module spongeBarSpacers() {
     translate([-gauge/2,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR - 2, -needleSlotHeight/2 - 1 - tolerance])
-    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
+    cube([gauge/2, 4, needleSlotHeight - 2], center = true);
     translate([-gauge/2,-(NEEDLE_BED_DEPTH-COMB) + 2, -needleSlotHeight/2 - 1 - tolerance])
-    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
+    cube([gauge/2, 4, needleSlotHeight - 2], center = true);
 }
 union() {
     difference() {
@@ -81,11 +80,7 @@ module needleBed() {
               translate([gauge*i, 0, 0]) {
               needleUnit(); 
               spongeBarSpacers();
-              }
-//        } else if (i == screwPlacement - 1 || i==numNeedles-(screwPlacement + 1)) {
-//            //LS screw holes
-//                translate([gauge*i, 0, 0])
-//                needleUnit(screw = 1);  
+              } 
         } else {
             // no spacer
             translate([gauge*i, 0, 0])
