@@ -1,8 +1,8 @@
 include<params.scad>;
-include<needlebedScrews.scad>;
+use<needlebedScrews.scad>;
 use<connector.scad>;
 
-module needleUnit(screw = 0) {
+module needleUnit() {
     difference() {
         needleBase();
         needleSlot();
@@ -10,7 +10,6 @@ module needleUnit(screw = 0) {
         spongeBarCutout();
         combCutout();
         frontAngle();
-        screwHoles(screw);
     }
 }
 
@@ -54,59 +53,38 @@ module frontAngle(width = gauge) {
 }
 
 module spongeBarSpacers() {
-    translate([gauge/2,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR - 2, -needleSlotHeight/2 - 1 - tolerance])
-    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
-    translate([gauge/2,-(NEEDLE_BED_DEPTH-COMB) + 2, -needleSlotHeight/2 - 1 - tolerance])
-    #cube([gauge/2, 4, needleSlotHeight - 2], center = true);
+    translate([-gauge/2,-(NEEDLE_BED_DEPTH-COMB) + SPONGE_BAR - 2, -needleSlotHeight/2 - 1 - tolerance])
+    cube([gauge/2, 4, needleSlotHeight - 2], center = true);
+    translate([-gauge/2,-(NEEDLE_BED_DEPTH-COMB) + 2, -needleSlotHeight/2 - 1 - tolerance])
+    cube([gauge/2, 4, needleSlotHeight - 2], center = true);
 }
-
-
-needleBed();
+union() {
+    difference() {
+        needleBed();
+        translate([-gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
+        #connector();
+        translate([-gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
+        #connector();
+        needleBedScrews();
+    }
+    translate([gauge*(numNeedles-1)+gauge/2,-connectorOffset,-needleBedHeight])
+                connector(tolerance = tolerance);
+                translate([gauge*(numNeedles-1)+gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
+                connector(tolerance = tolerance);
+}
+    
 
 module needleBed() {
     for(i = [0:numNeedles-1]) {
-        if (i == 0 || i==numNeedles-2) {
-          // RS screw holes       
-          if (i==0) {
-            // connector
-            difference() {
-            translate([gauge*i, 0, 0]) {
-//                    color("pink", 0.5)
-                needleUnit(screw = 1);
-                spongeBarSpacers();
-            }
-            translate([-gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
-            #connector();
-            translate([-gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
-            #connector();
-              }
-          } else {
-              // no connector
+        if (i==screwPlacement || i==numNeedles-screwPlacement) {
               translate([gauge*i, 0, 0]) {
-              needleUnit(screw = 1); 
+              needleUnit(); 
               spongeBarSpacers();
-              }
-          }
-            
-        } else if (i==1 || i==numNeedles-1) {
-            //LS screw holes
-            if (i==numNeedles-1) {
-                // connector
-                translate([gauge*i, 0, 0])
-                needleUnit(screw = -1);
-                translate([gauge*i+gauge/2,-connectorOffset,-needleBedHeight])
-                connector(tolerance = tolerance);
-                translate([gauge*i+gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
-                connector(tolerance = tolerance);
-            } else {
-                // no connector
-                translate([gauge*i, 0, 0])
-                needleUnit(screw = -1);
-            }   
+              } 
         } else {
-            // no screws
+            // no spacer
             translate([gauge*i, 0, 0])
-                     needleUnit(screw = 0);   
+                     needleUnit();   
         }  
     }
 }

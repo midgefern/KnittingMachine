@@ -44,3 +44,19 @@ module screwHoles(screw) {
 }
 
 //screwHoles(screw = 1);
+module needleBedScrews() {
+    for(i = [0:numNeedles-1]) {
+        if (i==screwPlacement || i==numNeedles-screwPlacement) {
+              translate([gauge*i, 0, 0]) {
+              screwHoles(screw = -1); 
+              }
+        } else if (i == screwPlacement - 1 || i==numNeedles-(screwPlacement + 1)) {
+            //LS screw holes
+                translate([gauge*i, 0, 0])
+                screwHoles(screw = 1);  
+        }
+    }
+}
+
+needleBedScrews() {
+}

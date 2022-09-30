@@ -68,6 +68,8 @@ YARN_DEPOSIT_Y = -155.1;
 YARN_DEPOSIT_Z = -needleSlotHeight + HOOK_DIAM;
 connectorOffset = 20;
 
+screwPlacement = 3; // how many needles from edge of bed; min 2, max floor(numNeedles/2)
+
 // ---
 // Carriage dimensions
 // refer to technical sketch
