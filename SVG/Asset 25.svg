@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94.04" height="47.67" viewBox="0 0 94.04 47.67">
+  <title>Asset 25</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Variable_Settings_Cams" data-name="Variable Settings Cams">
+      <circle cx="27.87" cy="25.7" r="21.97" fill="#58595b" opacity="0.6"/>
+      <g id="C_cam_shaped" data-name="C cam shaped">
+        <path id="C_cam" data-name="C cam" d="M94,23.93s-14.75,14-31,15.4c-10.42.93-24.81-6.6-25.18-15.37-.69-15.88,21.72-6.86,38.5-1.61C83.79,24.67,94,23.93,94,23.93Z" fill="#ef4136"/>
+        <path d="M52.1,20.53s0,0-.05-.05h0L38.62,5.87,36.53,7.79,46.71,18.85a5.66,5.66,0,1,0,5.39,1.68Z" fill="#231f20"/>
+        <path d="M65.63,35.13,52.14,20.57h0l0-.07a5.67,5.67,0,1,0-.3,8A5.61,5.61,0,0,0,53.33,26l10.22,11Z" fill="#231f20"/>
+      </g>
+      <path id="B_cam_cutout" data-name="B cam cutout" d="M36.32,46A22,22,0,1,1,35.23,5s2.42,14.08,2.58,18.83C38,29.38,36.32,46,36.32,46Z" fill="#231f20"/>
+      <path id="B_cam_plate" data-name="B cam plate" d="M35.26,31.38c-2.48,3.67-22.67,9-22.67,9a21.26,21.26,0,0,1,22-35S39.41,25.23,35.26,31.38Z" fill="#009444"/>
+      <path id="B_cam" data-name="B cam" d="M0,0S22.79,49.58,35.84,31.06C45.41,17.49,0,0,0,0Z" fill="#ef4136"/>
+      <path d="M47.89,30.89,30.83,20.76h0l-.06,0a5.69,5.69,0,1,0,2.76,4.94l12.91,7.67Z" fill="#231f20"/>
+      <path d="M31,20.84l-.07,0h0L14.3,10l-1.55,2.37,12.57,8.21a5.67,5.67,0,1,0,5.65.31Z" fill="#231f20"/>
+    </g>
+  </g>
+</svg>
