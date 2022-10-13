@@ -13,7 +13,7 @@ frontCamCoords = [39.175 - xOffset, -97, 1];
 backWallCoords = [16.5 - xOffset, -53, 1];
 bumperCoords = [91.5 - xOffset, -75.85, 1];
 
-camBPin = [28.655 - xOffset, -62.559, 0];
+camBPin = [28.655 - xOffset, -62.559, 0]; 
 camCPin = [35.723 - xOffset, -62.109, 0];
 camDPin = [35.041 - xOffset, -93.531, 0];
 
@@ -35,69 +35,75 @@ camDSpringCoord = [29.226 - xOffset, -98.494, camHeight + camPlateHeight - 3 + 0
 //camDSpringRevCoord = [];
 
     
-difference() {
-    union() {
-        backPlate();
-        intersection () {
-            color("purple")
-            hull() { // rounded leading edges
-                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
-                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
-                
-                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
-                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
-                
-                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                rotate([90,0,0])
-                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-                
-                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                rotate([90,0,0])
-                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-            }
-            camRails();
-        }
-//        upthrowCam();
-        translate(frontCamCoords)
-        linear_extrude(camHeight)
-        import("SVG/FrontCam.svg");  
-        translate(flip(frontCamCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/FrontCam.svg"); 
-       
-        translate(bumperCoords)
-        linear_extrude(camHeight)
-        import("SVG/BumperCam.svg");  
-        translate(flip(bumperCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/BumperCam.svg"); 
-        
-        translate(backWallCoords)
-        linear_extrude(camHeight)
-        import("SVG/BackWall.svg");  
-        translate(flip(backWallCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/BackWall.svg"); 
-    }
-    carriageScrews();
-}
+//difference() {
+//    union() {
+//        backPlate();
+//        intersection () {
+//            color("purple")
+//            hull() { // rounded leading edges
+//                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
+//                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
+//                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//                
+//                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//            }
+//            camRails();
+//        }
+////        upthrowCam();
+//        translate(frontCamCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/FrontCam.svg");  
+//        translate(flip(frontCamCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/FrontCam.svg"); 
+//       
+//        translate(bumperCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/BumperCam.svg");  
+//        translate(flip(bumperCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/BumperCam.svg"); 
+//        
+//        translate(backWallCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/BackWall.svg");  
+//        translate(flip(backWallCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/BackWall.svg"); 
+//    }
+//    carriageScrews();
+//}
 
-translate(tCamCoords)
-tCams();
-translate(flip(tCamCoords))
-mirror([1,0,0])
-tCams();
+//translate(tCamCoords)
+//tCams();
+//translate(flip(tCamCoords))
+//mirror([1,0,0])
+//tCams();
+//
+//translate(tPivotCoords)
+//tPivot();
+//translate(flip(tPivotCoords))
+//mirror([1,0,0])
+//tPivot();
 
-translate(tPivotCoords)
-tPivot();
-translate(flip(tPivotCoords))
-mirror([1,0,0])
-tPivot();
-
+// B and D lever plates are identical so we can multiply and mirror in the slicer
 camBLeverPlate();
+
+// multiply and mirror in the slicer
+//camB();
+//camC();
+//camD();
 
 
 // function and module definitions start here:
@@ -171,11 +177,6 @@ module camBLeverPlate() {
         }
     }
 }
-
-
-camB();
-camC();
-camD();
 
 module camB() {
     difference() {
@@ -293,8 +294,8 @@ module tSlots() {
         import("SVG/TSlot.svg");
 }
 
-module camPinHoles(camPinDiam = 1.9) {
-//    camPinDiam = 2; // check hardware measurements
+module camPinHoles(camPinDiam = 2.0) {
+//    camPinDiam = 1.7 + tolerance; // check hardware measurements
     translate(camBPin)
     pinHole(camPinDiam);   
     translate(flip(camBPin))
