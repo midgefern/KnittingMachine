@@ -1,39 +1,10 @@
 include<params.scad>;
+include<camplate_coords.scad>;
 //include<assembly.scad>;
 use<assembly.scad>;
 use<yarnCarrier.scad>;
 
 $fn = 50;
-
-tCamCoords = [46.409 - xOffset, -90.875, 1];
-tPivotCoords = [93.191 - xOffset, -90.75, camHeight + camPlateHeight/2 - 1];
-nutCoords = [51.746 - xOffset, -72.624, 1];
-tSlotCoords = [53.62 - xOffset, -70.401, camHeight - 1];
-frontCamCoords = [39.175 - xOffset, -97, 1];
-backWallCoords = [16.5 - xOffset, -53, 1];
-bumperCoords = [91.5 - xOffset, -75.85, 1];
-
-camBPin = [28.655 - xOffset, -62.559, 0]; 
-camCPin = [35.723 - xOffset, -62.109, 0];
-camDPin = [35.041 - xOffset, -93.531, 0];
-
-camBCoord = [18.823 - xOffset, -65.95, 1];
-camBPlateCoord = [];
-camBCutoutCoord = [20.904 - xOffset, -70.347, camHeight - tolerance];
-camBSpringCoord = [23.32 - xOffset, -64.559, camHeight + camPlateHeight - 3 + 0.05];
-camBSpringRevCoord = [26.655 - xOffset, -65.288, -camPlateHeight/2 - 0.05];
-
-camCCoord = [32.179 - xOffset, -67.435, 1];
-camCSpringCoord = [33.732 - xOffset, -66.603, camHeight - 3];
-camCSpringRevCoord = [31.711 - xOffset, -64.127, camHeight - tolerance];
-
-
-camDCoord = [16.867 - xOffset, -101.933, 1];
-camDPlateCoord = [];
-camDCutoutCoord = [27.299 - xOffset, -101.314, camHeight - tolerance];
-camDSpringCoord = [29.226 - xOffset, -98.494, camHeight + camPlateHeight - 3 + 0.05];
-//camDSpringRevCoord = [];
-
     
 //difference() {
 //    union() {
@@ -58,13 +29,13 @@ camDSpringCoord = [29.226 - xOffset, -98.494, camHeight + camPlateHeight - 3 + 0
 //            camRails();
 //        }
 ////        upthrowCam();
-//        translate(frontCamCoords)
+//        translate(frontWallCoords)
 //        linear_extrude(camHeight)
-//        import("SVG/FrontCam.svg");  
-//        translate(flip(frontCamCoords))
+//        import("SVG/FrontWall.svg");  
+//        translate(flip(frontWallCoords))
 //        mirror([1,0,0])
 //        linear_extrude(camHeight)
-//        import("SVG/FrontCam.svg"); 
+//        import("SVG/FrontWall.svg"); 
 //       
 //        translate(bumperCoords)
 //        linear_extrude(camHeight)
@@ -85,28 +56,26 @@ camDSpringCoord = [29.226 - xOffset, -98.494, camHeight + camPlateHeight - 3 + 0
 //    carriageScrews();
 //}
 
-//translate(tCamCoords)
-//tCams();
-//translate(flip(tCamCoords))
-//mirror([1,0,0])
-//tCams();
+translate(tCamCoords)
+tCams();
+translate(flip(tCamCoords))
+mirror([1,0,0])
+tCams();
+
+translate(tPivotCoords)
+tPivot(solid = true);
+translate(flip(tPivotCoords))
+mirror([1,0,0])
+tPivot(solid = true);
+
+!leverPlates();
 //
-//translate(tPivotCoords)
-//tPivot();
-//translate(flip(tPivotCoords))
-//mirror([1,0,0])
-//tPivot();
-
-// B and D lever plates are identical so we can multiply and mirror in the slicer
-camBLeverPlate();
-
-// multiply and mirror in the slicer
-//camB();
-//camC();
-//camD();
+//// multiply and mirror in slicer for now:
+//holdCam();
+//wpCam();
 
 
-// function and module definitions start here:
+// FUNCTION AND MODULE DEFS START HERE:
 function flip(coords) = [CAM_PLATE_WIDTH - coords[0], coords[1], coords[2]];
 
 module backPlate() {
@@ -127,104 +96,82 @@ module backPlate() {
         mirror([1,0,0])
         tPivot(tol = tolerance);
         
-        translate(camBCutoutCoord)
-        linear_extrude(camPlateHeight + 1, convexity = 10, $fn=100) // check spring measurements
-            import("SVG/BCamCutout.svg");
-        translate(flip(camBCutoutCoord))
-        mirror([1,0,0])
-        linear_extrude(camPlateHeight + 1, convexity = 10, $fn=100) // check spring measurements
-            import("SVG/BCamCutout.svg");
-            
-        translate(camDCutoutCoord)
-        linear_extrude(camPlateHeight + 1, convexity = 10, $fn=100) // check spring measurements
-            import("SVG/DCamCutout.svg");
-        translate(flip(camDCutoutCoord))
-        mirror([1,0,0])
-        linear_extrude(camPlateHeight + 1, convexity = 10, $fn=100) // check spring measurements
-            import("SVG/DCamCutout.svg");
-        
-        translate(camCSpringRevCoord)
-        linear_extrude(1.2) // check spring measurements
-            import("SVG/CSpringReverse.svg");
-        translate(flip(camCSpringRevCoord))
-        mirror([1,0,0])
-        linear_extrude(1.2) // check spring measurements
-            import("SVG/CSpringReverse.svg");
-            
         camPinHoles();
+        
+        translate([0,0,camHeight])
+        translate(wpPin)
+        cylinder(h = camPlateHeight * 2 + 1, d = 16 + tolerance*2, center = true);
+        
+        translate([0,0,camHeight])
+        translate(flip(wpPin))
+        cylinder(h = camPlateHeight * 2 + 1, d = 16, center = true);
+        
+        translate([0,0,camHeight])
+        translate(holdPin)
+        cylinder(h = camPlateHeight * 2 + 1, d = 16 + tolerance*2, center = true);
+        
+        translate([0,0,camHeight])
+        translate(flip(holdPin))
+        cylinder(h = camPlateHeight * 2 + 1, d = 16, center = true);
     }
 }
 
-
-//echo("B & D Pin length: ", camPlateHeight * 2 + camHeight); // check min pin length to pass through all layers
-
-module camBLeverPlate() {
-    color("lime")
-    translate([0,0,camHeight + camPlateHeight * 1.5 + tolerance]) {
-        difference() {
-            translate(camBPin)
-            cylinder(camPlateHeight, d = 19.5, center = true, $fn = 50);
-            
-            camPinHoles();
-            
-            translate(camBSpringRevCoord)
-            linear_extrude(1.2) // check spring measurements
-            import("SVG/BSpringReverse.svg");
-            translate(flip(camBSpringRevCoord))
-            mirror([1,0,0])
-            linear_extrude(1.2) // check spring measurements
-            import("SVG/BSpringReverse.svg");
+module leverPlates() {
+    difference() {
+        union() {
+            translate([0,0,camHeight + camPlateHeight + 1.5/2 + tolerance])
+            translate(wpPin)    
+            cylinder(h = 1.5, d = 18, center = true);   
+            translate([0,0,camHeight + camPlateHeight/2 + tolerance])
+                translate(wpPin)    
+            cylinder(h = camPlateHeight + tolerance, d = 16 - tolerance * 2, center = true);    
         }
+    translate(wpCamSpringRevCoord)
+            linear_extrude(3) // check spring measurements
+            import("SVG/WP_SpringReverse.svg");
+        translate(flip(wpCamSpringRevCoord))
+        mirror([1,0,0])
+            linear_extrude(3) // check spring measurements
+            import("SVG/WP_SpringReverse.svg");
+        translate([0,0,2])
+        #camPinHoles();
     }
-}
-
-module camB() {
-    difference() {
-        union() {
-            translate(camBCoord)
-            linear_extrude(camHeight - (1 + tolerance))
-            import("SVG/BCam.svg");
-            
-            translate([21.911 - xOffset, -65.951, camHeight - 1])
-            linear_extrude(camPlateHeight + 1)
-            import("SVG/BCamFill.svg");
-        }
-        camPinHoles();
-        translate(camBSpringCoord)
-            #linear_extrude(3) // check spring measurements
-            import("SVG/BCamSpring.svg");        
-    }    
-}
-
-module camC() {
-    difference() {
-        translate(camCCoord)
-        linear_extrude(camHeight - (1 + tolerance))
-        import("SVG/CCam.svg");
+       
         
-        camPinHoles();
-        translate(camCSpringCoord)
-            #linear_extrude(3) // check spring measurements
-            import("SVG/CCamSpring.svg");        
-    }    
-    
+//        translate(holdCamSpringRevCoord)
+//            #linear_extrude(3) // check spring measurements
+//            import("SVG/HoldCamSpringReverse.svg");  
+//        translate(flip(holdCamSpringRevCoord))
+//        mirror([1,0,0])
+//            #linear_extrude(3) // check spring measurements
+//            import("SVG/HoldCamSpringReverse.svg");  
 }
 
-module camD() {
+module wpCam() {
     difference() {
         union() {
-            translate(camDCoord)
+            translate(wpCamCoord)
             linear_extrude(camHeight - (1 + tolerance))
-            import("SVG/DCam.svg");
-            
-            translate([27.507 - xOffset, -99.674, camHeight - 1])
-            linear_extrude(camPlateHeight + 1)
-            import("SVG/DCamFill.svg");
+            import("SVG/WP_Cam.svg");
         }
         camPinHoles();
-        translate(camDSpringCoord)
+        translate(wpCamSpringCoord)
             #linear_extrude(3) // check spring measurements
-            import("SVG/DCamSpring.svg");        
+            import("SVG/WP_Spring.svg");        
+    }    
+}
+
+module holdCam() {
+    difference() {
+        union() {
+            translate(holdCamCoord)
+            linear_extrude(camHeight - (1 + tolerance))
+            import("SVG/HoldCam.svg");
+        }
+        camPinHoles();
+        translate(holdCamSpringCoord)
+            #linear_extrude(3) // check spring measurements
+            import("SVG/HoldCamSpring.svg");        
     }   
 }
 
@@ -283,9 +230,15 @@ module tCams() {
     }
 }
 
-module tPivot(tol = 0) {
+module tPivot(tol = 0, solid = false) {
      // pivot 
-    cylinder(camPlateHeight + 3, d = 8 + tol , center = true);
+    difference() {
+        cylinder(camPlateHeight + 3, d = 8 + tol , center = true);
+        if(solid) {
+            translate([0,0,camPlateHeight/2])
+            #cylinder(camPlateHeight, d = screwDiamSm + tol , center = true);
+        }     
+    }
 }
 
 module tSlots() {
@@ -296,19 +249,19 @@ module tSlots() {
 
 module camPinHoles(camPinDiam = 2.0) {
 //    camPinDiam = 1.7 + tolerance; // check hardware measurements
-    translate(camBPin)
+    translate(wpPin)
     pinHole(camPinDiam);   
-    translate(flip(camBPin))
+    translate(flip(wpPin))
     mirror([1,0,0])
     pinHole(camPinDiam);
-    translate(camCPin)
+//    translate(camCPin)
+//    pinHole(camPinDiam);   
+//    translate(flip(camCPin))
+//    mirror([1,0,0])
+//    pinHole(camPinDiam);
+    translate(holdPin)
     pinHole(camPinDiam);   
-    translate(flip(camCPin))
-    mirror([1,0,0])
-    pinHole(camPinDiam);
-    translate(camDPin)
-    pinHole(camPinDiam);   
-    translate(flip(camDPin))
+    translate(flip(holdPin))
     mirror([1,0,0])
     pinHole(camPinDiam);
 }
@@ -316,70 +269,3 @@ module camPinHoles(camPinDiam = 2.0) {
 module pinHole(camPinDiam) {
         cylinder((camHeight + camPlateHeight + 1) * 2, d = camPinDiam, center = true);
 }
-
-//module upthrowCam() {
-//    color("blue") {
-//        translate([0, -89.691, 1])
-//        linear_extrude(camHeight)
-//        import("SVG/Upthrow_cam.svg");
-//        
-//        translate([CAM_PLATE_WIDTH, -89.691, 1])
-//        mirror([1,0,0])
-//        linear_extrude(camHeight)
-//        import("SVG/Upthrow_cam.svg");
-//    }
-//}
-
-//module vCam(t = 1) {
-//    color("lime")
-//    difference () {
-//        union() {
-//            translate([0, -97, 1])
-//            linear_extrude(camHeight - 1, $fn = 100)
-//            import(str("SVG/T",t,".svg"));
-//            
-//            translate([CAM_PLATE_WIDTH, -97, 1])
-//            mirror([1,0,0])
-//            linear_extrude(camHeight - 1, $fn = 100)
-//            import(str("SVG/T",t,".svg"));
-//        }
-//        
-//        camPlateScrews();
-//        translate([CAM_PLATE_WIDTH,0,0])
-//        mirror([1,0,0])
-//        camPlateScrews();
-//        
-//        translate([58-xOffset,-90,0])
-//        mirror([1,0,0])
-//        linear_extrude(3)
-//        #text(str("T",t), size = 6);
-//    }
-//}
-
-//module camPlateScrews() {
-//    $fn = 25;
-//    translate([0,0,camHeight])
-//    translate(vCamScrews[0])
-//    cylinder(camHeight*2, d = screwDiam, center = true);
-//    
-//    translate([0,0,1])
-//    translate(vCamScrews[0])
-//    cylinder((screwHeadHeight+1)*2, d = screwHeadDiam, center = true);  
-//    
-//    translate([0,0,camHeight])
-//    translate(vCamScrews[1])
-//    cylinder(camHeight*2, d = screwDiam, center = true);
-//    
-//    translate([0,0,1])
-//    translate(vCamScrews[1])
-//    cylinder((screwHeadHeight+1)*2, d = screwHeadDiam, center = true);  
-//    
-//    translate([0,0,camHeight])
-//    translate(vCamScrews[2])
-//    cylinder(camHeight*2, d = screwDiam, center = true);
-//    
-//    translate([0,0,1])
-//    translate(vCamScrews[2])
-//    cylinder((screwHeadHeight + 1)*2, d = screwHeadDiam, center = true);  
-//}
-
