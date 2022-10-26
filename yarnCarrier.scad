@@ -1,13 +1,13 @@
 include<params.scad>;
 //include<assembly.scad>;
-//include<camplate.scad>;
+include<camplate.scad>;
 
 $fn = 50;
 
 // toggle which sections will render/export
-//exYarnCarrier = true;;
+exYarnCarrier = true;;
 exStripperPlate = true;
-//exYarnFeeder = true;
+exYarnFeeder = true;
 
 
 

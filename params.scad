@@ -75,13 +75,13 @@ screwPlacement = 3; // how many needles from edge of bed; min 2, max floor(numNe
 // refer to technical sketch
 camHeight = BUTT_HEIGHT; // thickness of the tracks the needles ride along
 camPlateHeight = 4; // plate behind the cams
-CAM_PLATE_WIDTH = 88 * 2; 
+CAM_PLATE_WIDTH = 91 * 2; 
 CAM_PLATE_DEPTH = NEEDLE_BED_DEPTH - COMB + 6;
 
 railDepth = 8;
 railHeight = 8; // ???
-xOffset = 19.5;
-vCamScrews = [[34-xOffset, -90.25, 0],[58-xOffset, -74.25, 0],[86-xOffset,-90.25, 0]];
+xOffset = 16.5;
+//vCamScrews = [[34-xOffset, -90.25, 0],[58-xOffset, -74.25, 0],[86-xOffset,-90.25, 0]];
 
 
 
