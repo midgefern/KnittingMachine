@@ -19,20 +19,13 @@ module backRail(width = gauge, rounded = false, tolerance = tolerance) {
 }
 
 difference() {
-                    translate([gauge*numNeedles/2 - gauge/2, 0, 0])
-
-            backCover(width = numNeedles*gauge);
-        needleBedScrews();
+    translate([gauge*numNeedles/2 - gauge/2, 0, 0])
+    
+    backCover(width = numNeedles*gauge);
+    needleBedScrews();
 }
 
-        
-//        translate([gauge, 0, 0])
-//        backRail(rounded = true);  
-//        translate([gauge*numNeedles, 0, 0])
-//        backRail(rounded = true);  
-        translate([(gauge*numNeedles)/2 - gauge/2, 0, 0]) {
-        backRail(width = numNeedles * gauge, rounded = true);
-//            mirror([1,0,0])
-//                    backRail(width = (numNeedles - 1) * gauge, rounded = false);
-        }
+
+translate([(gauge*numNeedles)/2 - gauge/2, 0, 0]) 
+backRail(width = numNeedles * gauge, rounded = true);        
      
