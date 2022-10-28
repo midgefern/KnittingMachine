@@ -8,10 +8,10 @@ $fn = 50;
 
 // --- LAYOUT: MAIN CARRIAGE/CAMPLATE BED    
 difference() {
+    color("purple")
     union() {
         backPlate();
         intersection () {
-//            color("purple")
             hull() { // rounded leading edges
                 translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
                 cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
@@ -172,17 +172,18 @@ module backPlate() {
         camPinHoles();
         
         translate(wpPin)
-        #springCamInsert(tol = tolerance);        
+        springCamInsert(tol = tolerance);        
         translate(flip(wpPin))
-        #springCamInsert(tol = tolerance);        
+        springCamInsert(tol = tolerance);        
         translate(holdPin)
-        #springCamInsert(tol = tolerance);        
+        springCamInsert(tol = tolerance);        
         translate(flip(holdPin))
-        #springCamInsert(tol = tolerance);        
+        springCamInsert(tol = tolerance);        
     }
 }
 
 module springCamInsert(tol = 0, solid = false) {
+    color("red")
     difference()    {
         union() {
             translate([0,0,camHeight + camPlateHeight/2])
@@ -197,6 +198,7 @@ module springCamInsert(tol = 0, solid = false) {
 }
 
 module leverPlate() {
+    color("orange")
 //    difference() {
         translate([0,0,camHeight + camPlateHeight + 1.5/2 + tolerance])    { 
         cylinder(h = 1.5, d = 18, center = true); 
@@ -208,6 +210,7 @@ module leverPlate() {
 }
 
 module wpCam() {
+    color("green")
     difference() {
         union() {
             translate(wpCamCoord)
@@ -222,6 +225,7 @@ module wpCam() {
 }
 
 module holdCam() {
+    color("blue")
     difference() {
         union() {
             translate(holdCamCoord)
@@ -258,23 +262,6 @@ module camRails() {
             camRailsInlet();
             frontRail(width = CAM_PLATE_WIDTH*2 +1, tolerance = -tolerance);
         }
-    }
-}
-
-//camRailsInlet(); // debug at origin
-
-module camRailsInlet() {
-    // cutout shape to round off entry to rail track
-    difference() {
-        cube([railDepth/2,railDepth*2, camHeight + railDepth/2], center = true);
-        translate([railDepth/2,railDepth - tolerance * 2, 0])
-        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
-        translate([railDepth/2,-railDepth + tolerance*2, 0])
-        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
-        
-        rotate([90,0,0])
-        translate([railDepth/2 - tolerance, camHeight - railDepth/2, 0])
-        cylinder(CAM_PLATE_DEPTH, d = railDepth + tolerance * 2, center = true, $fn = 50);
     }
 }
 
@@ -322,4 +309,21 @@ module camPinHoles(camPinDiam = 2.0) {
 
 module pinHole(camPinDiam) {
         cylinder((camHeight + camPlateHeight + 1) * 2, d = camPinDiam, center = true);
+}
+
+//camRailsInlet(); // debug at origin
+
+module camRailsInlet() {
+    // cutout shape to round off entry to rail track
+    difference() {
+        cube([railDepth/2,railDepth*2, camHeight + railDepth/2], center = true);
+        translate([railDepth/2,railDepth - tolerance * 2, 0])
+        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
+        translate([railDepth/2,-railDepth + tolerance*2, 0])
+        cylinder(h = camHeight + 8, d = railDepth, $fn = 50, center = true);
+        
+        rotate([90,0,0])
+        translate([railDepth/2 - tolerance, camHeight - railDepth/2, 0])
+        cylinder(CAM_PLATE_DEPTH, d = railDepth + tolerance * 2, center = true, $fn = 50);
+    }
 }
