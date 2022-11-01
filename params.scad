@@ -35,6 +35,8 @@ screwHeightSm = 14.62;
 screwHeadHeightSm = 2.41 + tolerance * 2;
 screwHeadDiamSm = 5.21 + tolerance * 2;
 
+// TODO: look for metric hardware alternatives while abroad 
+
 // ---
 // Needle dimensions
 // - Brother needles

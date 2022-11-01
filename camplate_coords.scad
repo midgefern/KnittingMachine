@@ -20,3 +20,8 @@ wpCamSpringRevCoord = [31.564 - xOffset, -72.581, camHeight - tolerance];
 holdCamCoord = [16.867 - xOffset, -101.933, camClearance];
 holdCamSpringCoord = [29.226 - xOffset, -98.494, camHeight - 3 + 0.05];
 holdCamSpringRevCoord = [33.04 - xOffset, -95.531, camHeight - tolerance];
+
+tPointerCoord = [40.724 - xOffset, -93.75, camHeight + camPlateHeight+ tolerance];
+tensionMarksDist = -65;
+tensionMarksStartAngle = 360-23.5;
+tensionAngleInc = 1;

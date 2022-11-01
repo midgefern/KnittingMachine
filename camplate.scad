@@ -6,127 +6,134 @@ use<yarnCarrier.scad>;
 
 $fn = 50;
 
+// TODO: This file has SO MUCH going on, it's a nightmare to navigate; refactor so each printable part has it's own file + one file to visualize full carriage assembly? plus might be able to clean up some repetitive code
+
 // --- LAYOUT: MAIN CARRIAGE/CAMPLATE BED    
-difference() {
-    color("purple")
-    union() {
-        backPlate();
-        intersection () {
-            hull() { // rounded leading edges
-                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
-                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
-                
-                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
-                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
-                
-                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                rotate([90,0,0])
-                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-                
-                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-                rotate([90,0,0])
-                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-            }
-            camRails();
-        }
-        translate(frontWallCoords)
-        linear_extrude(camHeight)
-        import("SVG/FrontWall.svg");  
-        translate(flip(frontWallCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/FrontWall.svg"); 
-       
-        translate(bumperCoords)
-        linear_extrude(camHeight)
-        import("SVG/BumperCam.svg");  
-        translate(flip(bumperCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/BumperCam.svg"); 
-        
-        translate(backWallCoords)
-        linear_extrude(camHeight)
-        import("SVG/BackWall.svg");  
-        translate(flip(backWallCoords))
-        mirror([1,0,0])
-        linear_extrude(camHeight)
-        import("SVG/BackWall.svg"); 
-    }
-    carriageScrews();
-}
-
-
-// --- LAYOUT: SPRING CAM INSERTS AND LEVER PLATES ---
-difference() {
-    translate(wpPin)
-    springCamInsert(solid = true);   
-    translate(wpCamSpringRevCoord)
-    linear_extrude(3) // check spring measurements
-    import("SVG/WP_SpringReverse.svg");
-    translate([0,0,2])
-    camPinHoles();
-}
-
-difference() {    
-    translate(flip(wpPin))
-    springCamInsert(solid = true);
-    translate(flip(wpCamSpringRevCoord))
-    mirror([1,0,0])
-    linear_extrude(3) // check spring measurements
-    import("SVG/WP_SpringReverse.svg");
-    translate([0,0,2])
-    camPinHoles();
-}   
-
-difference() {
-    translate(holdPin)
-    springCamInsert(solid = true);   
-    translate(holdCamSpringRevCoord)
-    linear_extrude(3) // check spring measurements
-    import("SVG/HoldCamSpringReverse.svg");
-    translate([0,0,2])
-    camPinHoles();
-}
-
-difference() {    
-    translate(flip(holdPin))
-    springCamInsert(solid = true);
-    translate(flip(holdCamSpringRevCoord))
-    mirror([1,0,0])
-    linear_extrude(3) // check spring measurements
-    import("SVG/HoldCamSpringReverse.svg");
-    translate([0,0,2])
-    camPinHoles();
-} 
- 
-difference() {
-    translate(wpPin)
-    leverPlate();
-    translate([0,0,2])
-    camPinHoles();
-}
-
-difference() {
-    translate(flip(wpPin))
-    leverPlate();
-    translate([0,0,2])
-    camPinHoles();
-}
-
-difference() {
-    translate(holdPin)
-    leverPlate();
-    translate([0,0,2])
-    camPinHoles();
-}
-
-difference() {
-    translate(flip(holdPin))
-    leverPlate();
-    translate([0,0,2])
-    camPinHoles();
-}
+//difference() {
+//    color("purple")
+//    union() {
+//        backPlate();
+//        intersection () {
+//            hull() { // rounded leading edges
+//                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
+//                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
+//                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
+//                
+//                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//                
+//                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+//                rotate([90,0,0])
+//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+//            }
+//            camRails();
+//        }
+//        translate(frontWallCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/FrontWall.svg");  
+//        translate(flip(frontWallCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/FrontWall.svg"); 
+//       
+//        translate(bumperCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/BumperCam.svg");  
+//        translate(flip(bumperCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/BumperCam.svg"); 
+//        
+//        translate(backWallCoords)
+//        linear_extrude(camHeight)
+//        import("SVG/BackWall.svg");  
+//        translate(flip(backWallCoords))
+//        mirror([1,0,0])
+//        linear_extrude(camHeight)
+//        import("SVG/BackWall.svg"); 
+//    }
+//    carriageScrews();
+//}
+//
+////backPlateTest();
+//
+//// --- LAYOUT: SPRING CAM INSERTS AND LEVER PLATES ---
+//difference() {
+//    translate(wpPin)
+//    springCamInsert(solid = true);   
+//    translate(wpCamSpringRevCoord)
+//    linear_extrude(3) // check spring measurements
+//    import("SVG/WP_SpringReverse.svg");
+//    translate([0,0,2])
+//    camPinHoles();
+//}
+//
+//difference() {    
+//    translate(flip(wpPin))
+//    mirror([1,0,0])
+//    springCamInsert(solid = true);
+//    translate(flip(wpCamSpringRevCoord))
+//    mirror([1,0,0])
+//    linear_extrude(3) // check spring measurements
+//    import("SVG/WP_SpringReverse.svg");
+//    translate([0,0,2])
+//    camPinHoles();
+//}   
+//
+//difference() {
+//    translate(holdPin)
+//    springCamInsert(solid = true);   
+//    translate(holdCamSpringRevCoord)
+//    linear_extrude(3) // check spring measurements
+//    import("SVG/HoldCamSpringReverse.svg");
+//    translate([0,0,2])
+//    camPinHoles();
+//}
+//
+//difference() {    
+//    translate(flip(holdPin))
+//    mirror([1,0,0])
+//    springCamInsert(solid = true);
+//    translate(flip(holdCamSpringRevCoord))
+//    mirror([1,0,0])
+//    linear_extrude(3) // check spring measurements
+//    import("SVG/HoldCamSpringReverse.svg");
+//    translate([0,0,2])
+//    camPinHoles();
+//} 
+// 
+//difference() {
+//    translate(wpPin)
+//    leverPlate(165);
+//    translate([0,0,2])
+//    camPinHoles();
+//}
+////
+////difference() {
+////    translate(flip(wpPin))
+////    mirror([1,0,0])
+////    leverPlate();
+////    translate([0,0,2])
+////    camPinHoles();
+////}
+////
+//difference() {
+//    translate(holdPin)
+//    leverPlate(200);
+//    translate([0,0,2])
+//    camPinHoles();
+//}
+////
+////difference() {
+////    translate(flip(holdPin))
+////    mirror([1,0,0])
+////    leverPlate();
+////    translate([0,0,2])
+////    camPinHoles();
+////}
 
 
 // --- LAYOUT: CAMS ---
@@ -143,9 +150,9 @@ translate(flip(tPivotCoords))
 mirror([1,0,0])
 tPivot(solid = true); 
 
-// multiply and mirror in slicer for now:
-holdCam();
-wpCam();
+//// multiply and mirror in slicer for now:
+//holdCam();
+//wpCam();
 
 
 // --- FUNCTION AND MODULE DEFS START HERE:
@@ -171,42 +178,201 @@ module backPlate() {
         
         camPinHoles();
         
-        translate(wpPin)
-        springCamInsert(tol = tolerance);        
-        translate(flip(wpPin))
-        springCamInsert(tol = tolerance);        
-        translate(holdPin)
-        springCamInsert(tol = tolerance);        
-        translate(flip(holdPin))
-        springCamInsert(tol = tolerance);        
+        translate(wpPin) {
+            springCamInsert(tol = tolerance);
+            rotate([0,0,-11])
+            translate([7,1,camHeight-tolerance])
+            #cube([6,1,1], center = false);
+            
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }         
+        translate(flip(wpPin)) {
+            springCamInsert(tol = tolerance);
+            mirror([1,0,0])    
+            rotate([0,0,-11])
+            translate([7,1,camHeight-tolerance])
+            #cube([6,1,1], center = false);
+            
+            mirror([1,0,0])    
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }
+//        springCamInsert(tol = tolerance);        
+        translate(holdPin) {
+            springCamInsert(tol = tolerance);  
+            rotate([0,0,25])
+            translate([7,-2,camHeight-tolerance])
+            #cube([6,1,1], center = false); 
+                
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }      
+        translate(flip(holdPin)) {
+            springCamInsert(tol = tolerance); 
+            mirror([1,0,0])
+            rotate([0,0,25])
+            translate([7,-2,camHeight-tolerance])
+            #cube([6,1,1], center = false); 
+            
+            mirror([1,0,0])    
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }
+        
+        // tension adjustment marks
+        translate([flip(tPivotCoords)[0],tPivotCoords[1],camHeight + camPlateHeight - 1 + tolerance]) {
+            for (i = [0:2:8]) {
+                mirror([1,0,0])
+                rotate([0,0,360-30.06 - i*tensionAngleInc])
+                translate([tensionMarksDist,0,0])               
+                #cube([6,0.5,1], center = false); 
+            }
+        } 
+        translate([tPivotCoords[0],tPivotCoords[1],camHeight + camPlateHeight - 1 + tolerance]) {
+            for (i = [0:2:8]) {
+                rotate([0,0,360-30.06 - i*tensionAngleInc])
+                translate([tensionMarksDist,0,0])
+                #cube([6,0.5,1], center = false); 
+            }
+        } 
     }
 }
 
+//!backPlateTest();
+
+//tPointer();
+
+module tPointer() {
+    difference() {
+    translate(tPointerCoord)
+    linear_extrude(2)
+    import("SVG/TPointer.svg");
+    // TODO: this hole needs to match the one in tPivot so it should probably be extracted to a reusable module or something    
+    translate(tPivotCoords)
+    cylinder(camPlateHeight*4, d = screwDiamSm, center = true);
+    }
+}
+
+module backPlateTest() {
+    color("magenta")
+    difference() {
+        translate([0,-CAM_PLATE_DEPTH,camHeight])
+        cube([CAM_PLATE_WIDTH/3, CAM_PLATE_DEPTH/2, camPlateHeight]);
+        
+        translate(tSlotCoords)
+        tSlots();
+        translate(flip(tSlotCoords))
+        mirror([1,0,0])
+        tSlots();
+        
+        translate(tPivotCoords)
+        tPivot(tol = tolerance);
+        translate(flip(tPivotCoords))
+        mirror([1,0,0])
+        tPivot(tol = tolerance);
+        
+        camPinHoles();
+        
+        translate(wpPin) {
+            springCamInsert(tol = tolerance);
+            rotate([0,0,-11])
+            translate([7,1,camHeight-tolerance])
+            cube([6,1,1], center = false);
+            
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }        
+        translate(flip(wpPin))
+        springCamInsert(tol = tolerance);        
+        translate(holdPin) {
+            springCamInsert(tol = tolerance); 
+            rotate([0,0,25])
+            translate([7,-2,camHeight-tolerance])
+            cube([6,1,1], center = false); 
+                
+            rotate([0,0,200])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            #cube([4,1,1]);
+        }      
+        translate(flip(holdPin))
+        springCamInsert(tol = tolerance);       
+        
+    }
+}
+
+//springCamInsert(solid = true);
+
 module springCamInsert(tol = 0, solid = false) {
     color("red")
-    difference()    {
+//    difference()    {
         union() {
             translate([0,0,camHeight + camPlateHeight/2])
             cylinder(h = camPlateHeight + tol * 2, d = 14 + tol * 2, center = true); 
             translate([0,0,camHeight + camPlateHeight/4])
-            cylinder(h = camPlateHeight/2 + tol * 2, d = 16 + tol * 2, center = true); 
+            cylinder(h = camPlateHeight/2 + tol, d = 16 + tol * 2, center = true); 
         }
-        if (solid) // registration slot
-        translate([0,0,camHeight + camPlateHeight/2 + 1.5 + tolerance])    
-        cube([15,1 + tolerance,1 + tolerance*2], center = true);
-    }
+//        if (solid) // alignment key
+//        alignmentMark();
+//    }
 }
 
-module leverPlate() {
-    color("orange")
-//    difference() {
+//!leverPlate();
+
+module leverPlate(rot) {
+//    color("orange")
+    difference() {
         translate([0,0,camHeight + camPlateHeight + 1.5/2 + tolerance])    { 
-        cylinder(h = 1.5, d = 18, center = true); 
-        // registration mark
-        translate([0,0,-1.5/2])    
-        cube([13.5,1,2], center = true);
+            union() {
+                cylinder(h = 1.5, d = 18, center = true); 
+                rotate([0,0,rot]) {
+                    translate([7,0,1.5/2])
+                    color("lime")
+                    leverPlatePeg();
+                    translate([-7,0,1.5/2])
+                    color("blue")
+                    leverPlatePeg();
+                } 
+            } 
+        }  // alignment "lock"
+//        alignmentMark(tol = tolerance);
+        rotate([0,0,200])
+        translate([4,4,camHeight + camPlateHeight + 1 + tolerance])
+        #cube([4,1,1]);
+    }   
+}
+
+module alignmentMark(tol = 0) {
+        translate([0,0,camHeight + camPlateHeight + tolerance]) {
+            linear_extrude(1.5 + tolerance, center = true)
+            polygon([[-6-tol,2],[3+tol,5+tol],[5,2]]);
+//            #cube([13.5 + tolerance*2,1 + tolerance,1.5 + tolerance], center = true);
+//            #cube([1 + tolerance,8 + tolerance,1.5 + tolerance], center = true);
         }
-//    }
+}
+
+//leverPlatePeg(); // debug at origin
+
+module leverPlatePeg() {
+    // hole is sized for a piece of bobby pin (flat side) measuring 1.5mm wide x 0.6mm thick
+    
+    bobbyWidth = 1.5;
+    bobbyHeight = 0.6;
+    difference() {
+        union() {
+            translate([0,0,1])
+            cube([3,4,2], center = true);
+            translate([-1.5,0,2])
+            rotate([0,90,0])
+            cylinder(3,2,2);
+        }
+        translate([0,0,2])
+        cube([3.5, bobbyWidth + tolerance*2, bobbyHeight + tolerance*2], center = true);    }
 }
 
 module wpCam() {
@@ -283,7 +449,7 @@ module tPivot(tol = 0, solid = false) {
         cylinder(camPlateHeight + 3, d = 8 + tol , center = true);
         if(solid) {
             translate([0,0,camPlateHeight/2])
-            #cylinder(camPlateHeight, d = screwDiamSm + tol , center = true);
+            #cylinder(camPlateHeight, d = screwDiamSm , center = true);
         }     
     }
 }
