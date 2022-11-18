@@ -2,63 +2,65 @@ include<params.scad>;
 include<camplate_coords.scad>;
 use<backCover.scad>;
 use<spongeBar.scad>;
-use<yarnCarrier.scad>;
+include<yarnCarrier.scad>;
 
 $fn = 50;
 
 // TODO: This file has SO MUCH going on, it's a nightmare to navigate; refactor so each printable part has it's own file + one file to visualize full carriage assembly? plus might be able to clean up some repetitive code
 
 // --- LAYOUT: MAIN CARRIAGE/CAMPLATE BED    
-//difference() {
-//    color("purple")
-//    union() {
-//        backPlate();
-//        intersection () {
-//            hull() { // rounded leading edges
-//                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
-//                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
-//                
-//                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
-//                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
-//                
-//                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-//                rotate([90,0,0])
-//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-//                
-//                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
-//                rotate([90,0,0])
-//                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
-//            }
-//            camRails();
-//        }
-//        translate(frontWallCoords)
-//        linear_extrude(camHeight)
-//        import("SVG/FrontWall.svg");  
-//        translate(flip(frontWallCoords))
-//        mirror([1,0,0])
-//        linear_extrude(camHeight)
-//        import("SVG/FrontWall.svg"); 
-//       
-//        translate(bumperCoords)
-//        linear_extrude(camHeight)
-//        import("SVG/BumperCam.svg");  
-//        translate(flip(bumperCoords))
-//        mirror([1,0,0])
-//        linear_extrude(camHeight)
-//        import("SVG/BumperCam.svg"); 
-//        
-//        translate(backWallCoords)
-//        linear_extrude(camHeight)
-//        import("SVG/BackWall.svg");  
-//        translate(flip(backWallCoords))
-//        mirror([1,0,0])
-//        linear_extrude(camHeight)
-//        import("SVG/BackWall.svg"); 
-//    }
-//    carriageScrews();
-//}
+difference() {
+    color("purple")
+    union() {
+        backPlate();
+        intersection () {
+            hull() { // rounded leading edges
+                translate([0,-CAM_PLATE_DEPTH,camHeight-camPlateHeight])
+                cube([CAM_PLATE_WIDTH, CAM_PLATE_DEPTH, camPlateHeight]);
+                
+                translate([camHeight/2,-CAM_PLATE_DEPTH,0])
+                cube([CAM_PLATE_WIDTH - camHeight, CAM_PLATE_DEPTH, camPlateHeight]);
+                
+                translate([camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+                rotate([90,0,0])
+                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+                
+                translate([CAM_PLATE_WIDTH - camHeight/2,-CAM_PLATE_DEPTH/2,camHeight/2])
+                rotate([90,0,0])
+                cylinder(CAM_PLATE_DEPTH, d = camHeight, center = true, $fn = 50);
+            }
+            camRails();
+        }
+        translate(frontWallCoords)
+        linear_extrude(camHeight)
+        import("SVG/FrontWall.svg");  
+        translate(flip(frontWallCoords))
+        mirror([1,0,0])
+        linear_extrude(camHeight)
+        import("SVG/FrontWall.svg"); 
+       
+        translate(bumperCoords)
+        linear_extrude(camHeight)
+        import("SVG/BumperCam.svg");  
+        translate(flip(bumperCoords))
+        mirror([1,0,0])
+        linear_extrude(camHeight)
+        import("SVG/BumperCam.svg"); 
+        
+        translate(backWallCoords)
+        linear_extrude(camHeight)
+        import("SVG/BackWall.svg");  
+        translate(flip(backWallCoords))
+        mirror([1,0,0])
+        linear_extrude(camHeight)
+        import("SVG/BackWall.svg"); 
+    }
+    carriageScrews();
+}
+
+//!backPlate();
 //
-////backPlateTest();
+//backPlateTest();
 //
 //// --- LAYOUT: SPRING CAM INSERTS AND LEVER PLATES ---
 //difference() {
@@ -243,9 +245,7 @@ module backPlate() {
     }
 }
 
-//!backPlateTest();
-
-//tPointer();
+//!tPointer();
 
 module tPointer() {
     difference() {
@@ -257,12 +257,13 @@ module tPointer() {
     cylinder(camPlateHeight*4, d = screwDiamSm, center = true);
     }
 }
-
+//!backPlateTest();
 module backPlateTest() {
     color("magenta")
     difference() {
-        translate([0,-CAM_PLATE_DEPTH,camHeight])
-        cube([CAM_PLATE_WIDTH/3, CAM_PLATE_DEPTH/2, camPlateHeight]);
+        translate([5,-CAM_PLATE_DEPTH+17,camHeight])
+//        cube([25, 45, camPlateHeight]);
+        cube(1);
         
         translate(tSlotCoords)
         tSlots();
@@ -279,34 +280,53 @@ module backPlateTest() {
         camPinHoles();
         
         translate(wpPin) {
-            springCamInsert(tol = tolerance);
+            #springCamInsert(tol = tolerance);
             rotate([0,0,-11])
             translate([7,1,camHeight-tolerance])
             cube([6,1,1], center = false);
             
             rotate([0,0,200])
             translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-            #cube([4,1,1]);
+            cube([4,1,1]);
         }        
         translate(flip(wpPin))
         springCamInsert(tol = tolerance);        
         translate(holdPin) {
-            springCamInsert(tol = tolerance); 
+            #springCamInsert(tol = tolerance); 
             rotate([0,0,25])
             translate([7,-2,camHeight-tolerance])
             cube([6,1,1], center = false); 
                 
             rotate([0,0,200])
             translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-            #cube([4,1,1]);
+            cube([4,1,1]);
         }      
         translate(flip(holdPin))
         springCamInsert(tol = tolerance);       
         
     }
-}
+    difference() {
+        translate(wpPin)
+        springCamInsert(solid = true);   
+        translate(wpCamSpringRevCoord)
+        linear_extrude(3) // check spring measurements
+        import("SVG/WP_SpringReverse.svg");
+        translate([0,0,2])
+        camPinHoles();
+    }
+    
+    difference() {
+        translate(holdPin)
+        springCamInsert(solid = true);   
+        translate(holdCamSpringRevCoord)
+        linear_extrude(3) // check spring measurements
+        import("SVG/HoldCamSpringReverse.svg");
+        translate([0,0,2])
+        camPinHoles();
+    }
 
-//springCamInsert(solid = true);
+
+}
 
 module springCamInsert(tol = 0, solid = false) {
     color("red")
@@ -315,7 +335,7 @@ module springCamInsert(tol = 0, solid = false) {
             translate([0,0,camHeight + camPlateHeight/2])
             cylinder(h = camPlateHeight + tol * 2, d = 14 + tol * 2, center = true); 
             translate([0,0,camHeight + camPlateHeight/4])
-            cylinder(h = camPlateHeight/2 + tol, d = 16 + tol * 2, center = true); 
+            cylinder(h = camPlateHeight/2 + tol*2, d = 16 + tol * 2, center = true); 
         }
 //        if (solid) // alignment key
 //        alignmentMark();
@@ -347,13 +367,29 @@ module leverPlate(rot) {
     }   
 }
 
-module alignmentMark(tol = 0) {
-        translate([0,0,camHeight + camPlateHeight + tolerance]) {
-            linear_extrude(1.5 + tolerance, center = true)
-            polygon([[-6-tol,2],[3+tol,5+tol],[5,2]]);
-//            #cube([13.5 + tolerance*2,1 + tolerance,1.5 + tolerance], center = true);
-//            #cube([1 + tolerance,8 + tolerance,1.5 + tolerance], center = true);
+//!leverLock();
+
+module leverLock() {
+//    color("orange")
+    translate([0,0,camHeight + camPlateHeight + 1.5/2 + tolerance])    { 
+//        cube([18, CAM_PLATE_DEPTH,1.5], center = true); 
+    bobbyWidth = 1.5;
+    bobbyHeight = 0.6;
+    difference() {
+        union() {
+            translate([0,0,1])
+            cube([3,4,2], center = true);
+            translate([-1.5,0,2])
+            rotate([0,90,0])
+            cylinder(3,2,2);
         }
+        translate([0,0,2])
+        cube([3.5, bobbyWidth + tolerance*2, bobbyHeight*2 + tolerance*2], center = true); 
+        translate([0,0,0.5])
+        cube([3.5, 3, 1 + tolerance*2], center = true);  
+    }    
+    } 
+    
 }
 
 //leverPlatePeg(); // debug at origin
@@ -372,7 +408,8 @@ module leverPlatePeg() {
             cylinder(3,2,2);
         }
         translate([0,0,2])
-        cube([3.5, bobbyWidth + tolerance*2, bobbyHeight + tolerance*2], center = true);    }
+        cube([3.5, bobbyWidth + tolerance*2, bobbyHeight + tolerance*2], center = true);    
+    }
 }
 
 module wpCam() {

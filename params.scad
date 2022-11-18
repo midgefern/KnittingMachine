@@ -13,8 +13,8 @@ I recommend only modifying these constants if you are also
 making changes to the cam design in the technical sketch.
 */
 
-gauge = 4.5;
-numNeedles = 25;
+gauge = 6.5;
+numNeedles = 5;
 tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
 
 // ---
@@ -85,6 +85,7 @@ railHeight = 8; // ???
 xOffset = 16.5;
 //vCamScrews = [[34-xOffset, -90.25, 0],[58-xOffset, -74.25, 0],[86-xOffset,-90.25, 0]];
 
+echo(needleSlotHeight);
 
 
 
