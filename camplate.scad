@@ -62,80 +62,80 @@ difference() {
 //
 //backPlateTest();
 //
-//// --- LAYOUT: SPRING CAM INSERTS AND LEVER PLATES ---
-//difference() {
-//    translate(wpPin)
-//    springCamInsert(solid = true);   
-//    translate(wpCamSpringRevCoord)
-//    linear_extrude(3) // check spring measurements
-//    import("SVG/WP_SpringReverse.svg");
-//    translate([0,0,2])
-//    camPinHoles();
-//}
+// --- LAYOUT: SPRING CAM INSERTS AND LEVER PLATES ---
+difference() {
+    translate(wpPin)
+    springCamInsert(solid = true);   
+    translate(wpCamSpringRevCoord)
+    linear_extrude(3) // check spring measurements
+    import("SVG/WPSpringReverse.svg");
+    translate([0,0,2])
+    camPinHoles();
+}
+
+difference() {    
+    translate(flip(wpPin))
+    mirror([1,0,0])
+    springCamInsert(solid = true);
+    translate(flip(wpCamSpringRevCoord))
+    mirror([1,0,0])
+    linear_extrude(3) // check spring measurements
+    import("SVG/WPSpringReverse.svg");
+    translate([0,0,2])
+    camPinHoles();
+}   
+
+difference() {
+    translate(holdPin)
+    springCamInsert(solid = true);   
+    translate(holdCamSpringRevCoord)
+    linear_extrude(3) // check spring measurements
+    import("SVG/HoldCamSpringReverse.svg");
+    translate([0,0,2])
+    camPinHoles();
+}
+
+difference() {    
+    translate(flip(holdPin))
+    mirror([1,0,0])
+    springCamInsert(solid = true);
+    translate(flip(holdCamSpringRevCoord))
+    mirror([1,0,0])
+    linear_extrude(3) // check spring measurements
+    import("SVG/HoldCamSpringReverse.svg");
+    translate([0,0,2])
+    camPinHoles();
+} 
+ 
+difference() {
+    translate(wpPin)
+    leverPlate(165);
+    translate([0,0,2])
+    camPinHoles();
+}
 //
-//difference() {    
+//difference() {
 //    translate(flip(wpPin))
 //    mirror([1,0,0])
-//    springCamInsert(solid = true);
-//    translate(flip(wpCamSpringRevCoord))
-//    mirror([1,0,0])
-//    linear_extrude(3) // check spring measurements
-//    import("SVG/WP_SpringReverse.svg");
-//    translate([0,0,2])
-//    camPinHoles();
-//}   
-//
-//difference() {
-//    translate(holdPin)
-//    springCamInsert(solid = true);   
-//    translate(holdCamSpringRevCoord)
-//    linear_extrude(3) // check spring measurements
-//    import("SVG/HoldCamSpringReverse.svg");
+//    leverPlate();
 //    translate([0,0,2])
 //    camPinHoles();
 //}
 //
-//difference() {    
+difference() {
+    translate(holdPin)
+    leverPlate(200);
+    translate([0,0,2])
+    camPinHoles();
+}
+//
+//difference() {
 //    translate(flip(holdPin))
 //    mirror([1,0,0])
-//    springCamInsert(solid = true);
-//    translate(flip(holdCamSpringRevCoord))
-//    mirror([1,0,0])
-//    linear_extrude(3) // check spring measurements
-//    import("SVG/HoldCamSpringReverse.svg");
-//    translate([0,0,2])
-//    camPinHoles();
-//} 
-// 
-//difference() {
-//    translate(wpPin)
-//    leverPlate(165);
+//    leverPlate();
 //    translate([0,0,2])
 //    camPinHoles();
 //}
-////
-////difference() {
-////    translate(flip(wpPin))
-////    mirror([1,0,0])
-////    leverPlate();
-////    translate([0,0,2])
-////    camPinHoles();
-////}
-////
-//difference() {
-//    translate(holdPin)
-//    leverPlate(200);
-//    translate([0,0,2])
-//    camPinHoles();
-//}
-////
-////difference() {
-////    translate(flip(holdPin))
-////    mirror([1,0,0])
-////    leverPlate();
-////    translate([0,0,2])
-////    camPinHoles();
-////}
 
 
 // --- LAYOUT: CAMS ---
@@ -152,9 +152,9 @@ translate(flip(tPivotCoords))
 mirror([1,0,0])
 tPivot(solid = true); 
 
-//// multiply and mirror in slicer for now:
-//holdCam();
-//wpCam();
+// multiply and mirror in slicer for now:
+holdCam();
+wpCam();
 
 
 // --- FUNCTION AND MODULE DEFS START HERE:
@@ -245,7 +245,7 @@ module backPlate() {
     }
 }
 
-//!tPointer();
+tPointer();
 
 module tPointer() {
     difference() {
@@ -310,7 +310,7 @@ module backPlateTest() {
         springCamInsert(solid = true);   
         translate(wpCamSpringRevCoord)
         linear_extrude(3) // check spring measurements
-        import("SVG/WP_SpringReverse.svg");
+        import("SVG/WPSpringReverse.svg");
         translate([0,0,2])
         camPinHoles();
     }
@@ -418,12 +418,12 @@ module wpCam() {
         union() {
             translate(wpCamCoord)
             linear_extrude(camHeight - (camClearance + tolerance))
-            import("SVG/WP_Cam.svg");
+            import("SVG/WPCam.svg");
         }
         camPinHoles();
         translate(wpCamSpringCoord)
             #linear_extrude(3) // check spring measurements
-            import("SVG/WP_Spring.svg");        
+            import("SVG/WPSpring.svg");        
     }    
 }
 
