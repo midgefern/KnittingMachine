@@ -1,9 +1,13 @@
 include<params.scad>;
 include<camplate_coords.scad>;
+include<utils.scad>;
 use<backCover.scad>;
 use<spongeBar.scad>;
 include<yarnCarrier.scad>;
 include<tPointer.scad>;
+use<springCamInsert.scad>;
+include<camPinHoles.scad>;
+
 
 $fn = 50;
 
@@ -159,7 +163,6 @@ wpCam();
 
 
 // --- FUNCTION AND MODULE DEFS START HERE:
-function flip(coords) = [CAM_PLATE_WIDTH - coords[0], coords[1], coords[2]];
 
 module backPlate() {
     color("magenta")
@@ -246,18 +249,6 @@ module backPlate() {
     }
 }
 
-//tPointer();
-//
-//module tPointer() {
-//    difference() {
-//    translate(tPointerCoord)
-//    linear_extrude(2)
-//    import("SVG/TPointer.svg");
-//    // TODO: this hole needs to match the one in tPivot so it should probably be extracted to a reusable module or something    
-//    translate(tPivotCoords)
-//    cylinder(camPlateHeight*4, d = screwDiamSm, center = true);
-//    }
-//}
 //!backPlateTest();
 module backPlateTest() {
     color("magenta")
@@ -327,20 +318,6 @@ module backPlateTest() {
     }
 
 
-}
-
-module springCamInsert(tol = 0, solid = false) {
-    color("red")
-//    difference()    {
-        union() {
-            translate([0,0,camHeight + camPlateHeight/2])
-            cylinder(h = camPlateHeight + tol * 2, d = 14 + tol * 2, center = true); 
-            translate([0,0,camHeight + camPlateHeight/4])
-            cylinder(h = camPlateHeight/2 + tol*2, d = 16 + tol * 2, center = true); 
-        }
-//        if (solid) // alignment key
-//        alignmentMark();
-//    }
 }
 
 //!leverPlate();
@@ -496,23 +473,6 @@ module tSlots() {
     // curved cutout for tension adjustment screws
         linear_extrude(camPlateHeight + 2)
         import("SVG/TSlot.svg");
-}
-
-module camPinHoles(camPinDiam = 2.0) {
-    translate(wpPin)
-    pinHole(camPinDiam);   
-    translate(flip(wpPin))
-    mirror([1,0,0])
-    pinHole(camPinDiam);
-    translate(holdPin)
-    pinHole(camPinDiam);   
-    translate(flip(holdPin))
-    mirror([1,0,0])
-    pinHole(camPinDiam);
-}
-
-module pinHole(camPinDiam) {
-        cylinder((camHeight + camPlateHeight + 1) * 2, d = camPinDiam, center = true);
 }
 
 //camRailsInlet(); // debug at origin

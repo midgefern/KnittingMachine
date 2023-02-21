@@ -13,6 +13,8 @@ I recommend only modifying these constants if you are also
 making changes to the cam design in the technical sketch.
 */
 
+$fn = 50;
+
 gauge = 6.5;
 numNeedles = 5;
 tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
