@@ -14,7 +14,10 @@ use<leverPlate.scad>;
 use<backPlate.scad>;
 
 
-// TODO: This file has SO MUCH going on, it's a nightmare to navigate; refactor so each printable part has it's own file + one file to visualize full carriage assembly? plus might be able to clean up some repetitive code
+/* 
+Full carriage assembly
+See individual files to export models
+*/
 
 // --- LAYOUT: MAIN CARRIAGE/CAMPLATE BED    
 difference() {
