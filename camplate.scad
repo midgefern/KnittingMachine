@@ -7,9 +7,9 @@ include<yarnCarrier.scad>;
 include<tPointer.scad>;
 use<springCamInsert.scad>;
 include<camPinHoles.scad>;
-
-
-$fn = 50;
+use<wpCam.scad>;
+use<holdCam.scad>;
+use<tCam.scad>;
 
 // TODO: This file has SO MUCH going on, it's a nightmare to navigate; refactor so each printable part has it's own file + one file to visualize full carriage assembly? plus might be able to clean up some repetitive code
 
@@ -146,10 +146,10 @@ difference() {
 // --- LAYOUT: CAMS ---
 
 translate(tCamCoords)
-tCams();
+tCam();
 translate(flip(tCamCoords))
 mirror([1,0,0])
-tCams();
+tCam();
 
 translate(tPivotCoords)
 tPivot(solid = true);
@@ -390,35 +390,20 @@ module leverPlatePeg() {
     }
 }
 
-module wpCam() {
-    color("green")
-    difference() {
-        union() {
-            translate(wpCamCoord)
-            linear_extrude(camHeight - (camClearance + tolerance))
-            import("SVG/WPCam.svg");
-        }
-        camPinHoles();
-        translate(wpCamSpringCoord)
-            #linear_extrude(3) // check spring measurements
-            import("SVG/WPSpring.svg");        
-    }    
-}
-
-module holdCam() {
-    color("blue")
-    difference() {
-        union() {
-            translate(holdCamCoord)
-            linear_extrude(camHeight - (camClearance + tolerance))
-            import("SVG/HoldCam.svg");
-        }
-        camPinHoles();
-        translate(holdCamSpringCoord)
-            #linear_extrude(3) // check spring measurements
-            import("SVG/HoldCamSpring.svg");        
-    }   
-}
+//module holdCam() {
+//    color("blue")
+//    difference() {
+//        union() {
+//            translate(holdCamCoord)
+//            linear_extrude(camHeight - (camClearance + tolerance))
+//            import("SVG/HoldCam.svg");
+//        }
+//        camPinHoles();
+//        translate(holdCamSpringCoord)
+//            #linear_extrude(3) // check spring measurements
+//            import("SVG/HoldCamSpring.svg");        
+//    }   
+//}
 
 module camRails() {
     color("purple") {
@@ -446,28 +431,28 @@ module camRails() {
     }
 }
 
-module tCams() {
-    // adjustable tension cams 
-    difference() {
-            linear_extrude(camHeight - (camClearance + tolerance))
-            import("SVG/TCam.svg");
-        
-        translate([nutCoords[0] - tCamCoords[0], nutCoords[1] - tCamCoords[1], camHeight - (1 + tolerance*2) - nutHeight])
-            linear_extrude(nutHeight + tolerance*2 + 1)
-            import("SVG/Hex4_40.svg");    
-    }
-}
-
-module tPivot(tol = 0, solid = false) {
-     // pivot 
-    difference() {
-        cylinder(camPlateHeight + 3, d = 8 + tol , center = true);
-        if(solid) {
-            translate([0,0,camPlateHeight/2])
-            #cylinder(camPlateHeight, d = screwDiamSm , center = true);
-        }     
-    }
-}
+//module tCam() {
+//    // adjustable tension cams 
+//    difference() {
+//            linear_extrude(camHeight - (camClearance + tolerance))
+//            import("SVG/TCam.svg");
+//        
+//        translate([nutCoords[0] - tCamCoords[0], nutCoords[1] - tCamCoords[1], camHeight - (1 + tolerance*2) - nutHeight])
+//            linear_extrude(nutHeight + tolerance*2 + 1)
+//            import("SVG/Hex4_40.svg");    
+//    }
+//}
+//
+//module tPivot(tol = 0, solid = false) {
+//     // pivot 
+//    difference() {
+//        cylinder(camPlateHeight + 3, d = 8 + tol , center = true);
+//        if(solid) {
+//            translate([0,0,camPlateHeight/2])
+//            #cylinder(camPlateHeight, d = screwDiamSm , center = true);
+//        }     
+//    }
+//}
 
 module tSlots() {
     // curved cutout for tension adjustment screws
