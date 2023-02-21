@@ -2,6 +2,8 @@ include<params.scad>;
 //include<needlebed.scad>;
 
 module screwHoles(screw) {
+    
+    
     // "screw" is passed in during the loop to place holes at either end of the assembly
     if (screw > 0) { //left half
        // spongebar screw
@@ -12,13 +14,13 @@ module screwHoles(screw) {
        }
        // back screw, back cover
        translate([gauge/2, -5, 0]) {
-         cylinder(h = needleBedHeight*2 + 1, d = screwDiam, center = true, $fn = 25);
-                cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiam, center = true, $fn = 25);   
+         cylinder(h = needleBedHeight*2 + 1, d = screwDiamSm, center = true, $fn = 25);
+                cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiamSm, center = true, $fn = 25);   
        }    
          // front screw, back cover
        translate([gauge/2, -BACK_COVER + 5, 0]) {
-         cylinder(h = needleBedHeight*2 + 1, d = screwDiam, center = true, $fn = 25);  
-          cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiam, center = true, $fn = 25);   
+         cylinder(h = needleBedHeight*2 + 1, d = screwDiamSm, center = true, $fn = 25);  
+          cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiamSm, center = true, $fn = 25);   
        }
      }
      
@@ -31,13 +33,13 @@ module screwHoles(screw) {
        }
        // back screw, back cover
        translate([-gauge/2, -5, 0]) {
-         cylinder(h = needleBedHeight*2 + 1, d = screwDiam, center = true, $fn = 25);
-                cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiam, center = true, $fn = 25);   
+         cylinder(h = needleBedHeight*2 + 1, d = screwDiamSm, center = true, $fn = 25);
+                cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiamSm, center = true, $fn = 25);   
        }    
          // front screw, back cover
        translate([-gauge/2, -BACK_COVER + 5, 0]) {
-         cylinder(h = needleBedHeight*2 + 1, d = screwDiam, center = true, $fn = 25);  
-          cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiam, center = true, $fn = 25);   
+         cylinder(h = needleBedHeight*2 + 1, d = screwDiamSm, center = true, $fn = 25);  
+          cylinder(h = screwHeadHeight*2 + tolerance, d = screwHeadDiamSm, center = true, $fn = 25);   
        }
      }
   
