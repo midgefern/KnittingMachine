@@ -3,7 +3,6 @@ include<camplate_coords.scad>;
 include<utils.scad>;
 use<backCover.scad>;
 use<spongeBar.scad>;
-//use<yarnCarrier.scad>;
 use<springCamInsert.scad>;
 include<camPinHoles.scad>;
 use<wpCam.scad>;

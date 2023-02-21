@@ -15,8 +15,8 @@ making changes to the cam design in the technical sketch.
 
 $fn = 50;
 
-gauge = 6.5;
-numNeedles = 5;
+gauge = 4.5;
+numNeedles = 25;
 tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
 
 // ---
