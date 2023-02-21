@@ -26,6 +26,9 @@ module tPivot(tol = 0, solid = false) {
     }
 }
 
+
+// print 2, mirrored
+
 translate(tCamCoords)
 tCam();
 
