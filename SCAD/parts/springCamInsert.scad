@@ -38,29 +38,29 @@ module backPlateTest() {
         camPinHoles();
         
         translate(wpPin) {
-            springCamInsert(tol = tolerance);
+            springCamInsert(tol = tolerance*1.5);
             rotate([0,0,-11])
-            translate([7,1,camHeight-tolerance])
+            translate([7,1,camHeight-tolerance*1.5])
             cube([6,1,1], center = false);
             
             rotate([0,0,200])
-            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance*1.5])
             cube([4,1,1]);
         }        
         translate(flip(wpPin))
-        springCamInsert(tol = tolerance);        
+        springCamInsert(tol = tolerance*1.5);        
         translate(holdPin) {
-            springCamInsert(tol = tolerance); 
+            springCamInsert(tol = tolerance*1.5); 
             rotate([0,0,25])
-            translate([7,-2,camHeight-tolerance])
+            translate([7,-2,camHeight-tolerance*1.5])
             cube([6,1,1], center = false); 
                 
             rotate([0,0,200])
-            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
+            translate([8,4,camHeight + camPlateHeight - 1 + tolerance*1.5])
             cube([4,1,1]);
         }      
         translate(flip(holdPin))
-        springCamInsert(tol = tolerance);       
+        springCamInsert(tol = tolerance*1.5);       
         
     }
     difference() {

@@ -6,15 +6,13 @@ include<../modules/camPinHoles.scad>;
 module wpCam() {
     color("green")
     difference() {
-        union() {
-            translate(wpCamCoord)
+        translate(wpCamCoord)
             linear_extrude(camHeight - (camClearance + tolerance))
             import("../../SVG/WPCam.svg");
-        }
         camPinHoles();
-        translate(wpCamSpringCoord)
-            #linear_extrude(3) // check spring measurements
-            import("../../SVG/WPSpring.svg");        
+            translate(wpCamSpringCoord)
+                #linear_extrude(3) // check spring measurements
+                import("../../SVG/WPSpring.svg");        
     }    
 }
 
