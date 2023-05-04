@@ -1,6 +1,6 @@
-include<params.scad>;
-use<needlebedScrews.scad>;
-use<roundedRail.scad>;
+include<../modules/params.scad>;
+use<../modules/needlebedScrews.scad>;
+use<../modules/roundedRail.scad>;
 
 module backCover(width = gauge) { 
 

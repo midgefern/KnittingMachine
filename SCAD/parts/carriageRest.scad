@@ -1,8 +1,10 @@
-include<params.scad>;
-use<needleBed.scad>;
-use<backCover.scad>;
-use<spongeBar.scad>;
-use<connector.scad>;
+include<../modules/params.scad>;
+use<../parts/needleBed.scad>;
+use<../parts/backCover.scad>;
+use<../parts/spongeBar.scad>;
+use<../modules/connector.scad>;
+
+// TODO: needs refactoring!
 
 clampWidth = 50;
 clampDepth = NEEDLE_BED_DEPTH-clampWidth/2; 
@@ -104,7 +106,7 @@ module clampUnit() {
             // nut cutout
             translate([-14.491/2,-12.55/2,clampThickness/2]) // use w/h specs from svg
             linear_extrude(6.75, center = true)
-            import("SVG/HexNut.svg");
+            import("../../SVG/HexNut.svg");
         }        
     }
 }
@@ -113,6 +115,7 @@ module clampUnit() {
 //translate([-gauge,0,0])
 //clampUnit();
 
+// LEFT
 union() {
     translate([-gauge, 0, 0])
     carriageRest();
@@ -122,12 +125,13 @@ union() {
     connector(tolerance = tolerance);
 }
 
-//difference() {
-//translate([gauge*numNeedles, 0, 0])
-//mirror([1,0,0])
-//carriageRest();
-//translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
-//connector();
-//translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
-//connector();
-//}
+//RIGHT
+difference() {
+translate([gauge*numNeedles, 0, 0])
+mirror([1,0,0])
+carriageRest();
+translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
+connector();
+translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
+connector();
+}

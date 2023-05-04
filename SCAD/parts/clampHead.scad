@@ -1,4 +1,4 @@
-include<params.scad>;
+include<../modules/params.scad>;
 
 module clampHead() {
    $fn = 50;

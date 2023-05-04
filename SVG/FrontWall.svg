@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="182.33" height="19.84" viewBox="0 0 182.33 19.84">
+<svg xmlns="http://www.w3.org/2000/svg" width="173.83" height="19.84" viewBox="0 0 173.83 19.84">
   <title>FrontWall</title>
   <g id="Layer_2" data-name="Layer 2">
     <g id="UWP_path" data-name="UWP path">
-      <path id="Front_cam" data-name="Front cam" d="M2.89,5.68c-8-2.66,2.73,14.16,7.84,13.74l171.6.42V0c-6.81,5.61-12.17,13.5-43.64,14.18C84.91,15.34,19.34,11.11,2.89,5.68Z" fill="#262262"/>
+      <path id="Front_cam" data-name="Front cam" d="M2.89,5.68c-8-2.66,2.73,14.16,7.84,13.74l163.1.42V0c-6.81,5.61-3.67,13.5-35.14,14.18C84.91,15.34,19.34,11.11,2.89,5.68Z" fill="#262262"/>
     </g>
   </g>
 </svg>

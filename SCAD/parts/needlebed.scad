@@ -1,6 +1,6 @@
-include<params.scad>;
-use<needlebedScrews.scad>;
-use<connector.scad>;
+include<../modules/params.scad>;
+use<../modules/needlebedScrews.scad>;
+use<../modules/connector.scad>;
 
 module needleUnit() {
     difference() {

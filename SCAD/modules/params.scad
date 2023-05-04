@@ -13,8 +13,10 @@ I recommend only modifying these constants if you are also
 making changes to the cam design in the technical sketch.
 */
 
-gauge = 6.5;
-numNeedles = 5;
+$fn = 50;
+
+gauge = 4.5;
+numNeedles = 25;
 tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
 
 // ---
@@ -29,7 +31,7 @@ screwHeadHeight = 2.55 + tolerance * 2;
 nutWidth = 7.9;
 nutHeight = 2.8;
 
-// - pan head 4-40 machine screws
+// - pan head 4-40 machine screws (M3 should also work where these are used)
 screwDiamSm = 2.79;
 screwHeightSm = 14.62;
 screwHeadHeightSm = 2.41 + tolerance * 2;

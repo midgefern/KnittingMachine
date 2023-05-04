@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="45.35" height="11.34" viewBox="0 0 45.35 11.34">
-  <title>Bumper cam</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="36.85" height="11.34" viewBox="0 0 36.85 11.34">
+  <title>BumperCam</title>
   <g id="Layer_2" data-name="Layer 2">
-    <g id="Variable_Settings_Cams" data-name="Variable Settings Cams">
-      <path id="Bumper_cam" data-name="Bumper cam" d="M45.35,11.34V0H5C3.54,0,0,5.67,0,5.67s3.4,5.66,4.79,5.67Z" fill="#262262"/>
+    <g id="UWP_path" data-name="UWP path">
+      <path id="Bumper_cam" data-name="Bumper cam" d="M36.85,11.34V0H5C3.54,0,0,5.67,0,5.67s3.4,5.66,4.79,5.67Z" fill="#262262"/>
     </g>
   </g>
 </svg>
