@@ -11,6 +11,29 @@ clampDepth = NEEDLE_BED_DEPTH-clampWidth/2;
 clampThickness = 6;
 clampHollow = 62;
 
+//// LEFT
+//union() {
+//    translate([-gauge, 0, 0])
+//    carriageRest();
+//    translate([-gauge/2,-connectorOffset,-needleBedHeight])
+//    connector(tolerance = tolerance);
+//    translate([-gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
+//    connector(tolerance = tolerance);
+//}
+//
+////RIGHT
+//difference() {
+//    translate([gauge*numNeedles, 0, 0])
+//    mirror([1,0,0])
+//    carriageRest();
+//    translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
+//    connector();
+//    translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
+//    connector();
+//}
+
+clampUnit();
+
 module carriageRest() {
     union() {
         difference() {
@@ -105,7 +128,7 @@ module clampUnit() {
             
             // nut cutout
             translate([-14.491/2,-12.55/2,clampThickness/2]) // use w/h specs from svg
-            linear_extrude(6.75, center = true)
+            #linear_extrude(6.75, center = true)
             import("../../SVG/HexNut.svg");
         }        
     }
@@ -114,24 +137,3 @@ module clampUnit() {
 
 //translate([-gauge,0,0])
 //clampUnit();
-
-// LEFT
-union() {
-    translate([-gauge, 0, 0])
-    carriageRest();
-    translate([-gauge/2,-connectorOffset,-needleBedHeight])
-    connector(tolerance = tolerance);
-    translate([-gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
-    connector(tolerance = tolerance);
-}
-
-//RIGHT
-difference() {
-translate([gauge*numNeedles, 0, 0])
-mirror([1,0,0])
-carriageRest();
-translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
-connector();
-translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
-connector();
-}

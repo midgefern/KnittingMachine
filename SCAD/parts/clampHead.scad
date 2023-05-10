@@ -1,5 +1,7 @@
 include<../modules/params.scad>;
 
+// fits over the tip of the eyebolt to secure the clamp to the table; captive ball pivots inside the cone shape so do not print with supports!
+
 module clampHead() {
    $fn = 50;
    boltDiam = 7.8;
