@@ -4,13 +4,8 @@ include<../modules/utils.scad>;
 use<../parts/backCover.scad>;
 use<../parts/spongeBar.scad>;
 include<../parts/tPointer.scad>;
-//use<../parts/springCamInsert.scad>;
-//include<../modules/camPinHoles.scad>;
 include<../modules/carriageScrews.scad>;
-//use<../parts/wpCam.scad>;
-//use<../parts/holdCam.scad>;
 use<../parts/tCam.scad>;
-//use<../parts/leverPlate.scad>;
 include<../parts/backPlate.scad>;
 
 

@@ -9,31 +9,33 @@ use<../modules/connector.scad>;
 clampWidth = 50;
 clampDepth = NEEDLE_BED_DEPTH-clampWidth/2; 
 clampThickness = 6;
-clampHollow = 62;
+clampHollow = 85; // adjust this for your table thickness
 
 // LEFT
 union() {
     translate([-gauge, 0, 0])
     carriageRest();
-    translate([-gauge/2,-connectorOffset,-needleBedHeight])
-    connector(tolerance = tolerance);
-    translate([-gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
-    connector(tolerance = tolerance);
+//    translate([-gauge/2,-connectorOffset,-needleBedHeight])
+//    connector(tolerance = tolerance);
+//    translate([-gauge/2,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight])
+//    connector(tolerance = tolerance);
 }
 
 //RIGHT
-difference() {
+//difference() {
     translate([gauge*numNeedles, 0, 0])
     mirror([1,0,0])
     carriageRest();
-    translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
-    connector();
-    translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
-    connector();
-}
+//    translate([gauge*numNeedles - gauge/2 - tolerance,-connectorOffset,-needleBedHeight-tolerance])
+//    connector();
+//    translate([gauge*numNeedles - gauge/2 - tolerance,-(NEEDLE_BED_DEPTH-connectorOffset),-needleBedHeight - tolerance])
+//    connector();
+//}
 
-//// CLAMP
-//clampUnit();
+////// CLAMP
+translate([-gauge,0,0])
+clampUnit();
+
 
 module carriageRest() {
     union() {
@@ -55,10 +57,10 @@ module carriageRest() {
                 cube([clampWidth, clampDepth*2, clampThickness*2], center = true); 
             clampScrews();
         }
-        translate([gauge/2-CAM_PLATE_WIDTH/4,0,0]) {
-            frontRail(CAM_PLATE_WIDTH/2, rounded = true);
-            backRail(CAM_PLATE_WIDTH/2, rounded = true);
-        }
+//        translate([gauge/2-CAM_PLATE_WIDTH/4,0,0]) {
+//            frontRail(CAM_PLATE_WIDTH/2, rounded = true);
+//            backRail(CAM_PLATE_WIDTH/2, rounded = true);
+//        }
     }
 }
 
@@ -135,6 +137,3 @@ module clampUnit() {
     }
 }
 
-
-//translate([-gauge,0,0])
-//clampUnit();

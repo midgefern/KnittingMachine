@@ -17,6 +17,7 @@ $fn = 50;
 
 STANDARD_GAUGE = 4.5;
 MID_GAUGE = 6.5;
+BULKY_GAUGE = 9.0;
 
 gauge = MID_GAUGE; // I recommend using one of the predefined gauges above
 numNeedles = 25;

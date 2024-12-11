@@ -3,16 +3,11 @@ include<../modules/camplate_coords_mk2.scad>;
 include<../modules/utils.scad>;
 use<backCover.scad>;
 use<spongeBar.scad>;
-use<springCamInsert.scad>;
-//include<../modules/camPinHoles.scad>;
-//use<wpCam.scad>;
-//use<holdCam.scad>;
 use<tCam.scad>;
-//use<leverPlate.scad>;
 use<../modules/carriageScrews.scad>;
 
 difference() {
-    color("purple")
+    color("purple", 0.5)
     union() {
         backPlate();
         intersection () {
@@ -79,54 +74,6 @@ module backPlate() {
         translate(flip(tPivotCoords))
         mirror([1,0,0])
         tPivot(tol = tolerance);
-        
-//        camPinHoles();
-        
-//        translate(wpPin) {
-//            springCamInsert(tol = tolerance);
-//            rotate([0,0,-11])
-//            translate([7,1,camHeight-tolerance])
-//            #cube([6,1,1], center = false);
-//            
-//            rotate([0,0,200])
-//            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-//            #cube([4,1,1]);
-//        }         
-//        translate(flip(wpPin)) {
-//            springCamInsert(tol = tolerance);
-//            mirror([1,0,0])    
-//            rotate([0,0,-11])
-//            translate([7,1,camHeight-tolerance])
-//            #cube([6,1,1], center = false);
-//            
-//            mirror([1,0,0])    
-//            rotate([0,0,200])
-//            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-//            #cube([4,1,1]);
-//        }
-////        springCamInsert(tol = tolerance);        
-//        translate(holdPin) {
-//            springCamInsert(tol = tolerance);  
-//            rotate([0,0,25])
-//            translate([7,-2,camHeight-tolerance])
-//            #cube([6,1,1], center = false); 
-//                
-//            rotate([0,0,200])
-//            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-//            #cube([4,1,1]);
-//        }      
-//        translate(flip(holdPin)) {
-//            springCamInsert(tol = tolerance); 
-//            mirror([1,0,0])
-//            rotate([0,0,25])
-//            translate([7,-2,camHeight-tolerance])
-//            #cube([6,1,1], center = false); 
-//            
-//            mirror([1,0,0])    
-//            rotate([0,0,200])
-//            translate([8,4,camHeight + camPlateHeight - 1 + tolerance])
-//            #cube([4,1,1]);
-//        }
         
         // tension adjustment marks
         translate([flip(tPivotCoords)[0],tPivotCoords[1],camHeight + camPlateHeight - 1 + tolerance]) {
