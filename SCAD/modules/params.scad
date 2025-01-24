@@ -15,7 +15,11 @@ making changes to the cam design in the technical sketch.
 
 $fn = 50;
 
-gauge = 4.5;
+STANDARD_GAUGE = 4.5;
+MID_GAUGE = 6.5;
+BULKY_GAUGE = 9.0;
+
+gauge = MID_GAUGE; // I recommend using one of the predefined gauges above
 numNeedles = 25;
 tolerance = 0.2; // allows a bit of room for parts that have to fit together; adjust according to your printer's precision
 

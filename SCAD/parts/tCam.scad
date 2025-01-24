@@ -1,17 +1,17 @@
 include<../modules/params.scad>;
-include<../modules/camplate_coords.scad>;
+include<../modules/camplate_coords_mk2.scad>;
 include<../modules/utils.scad>;
-include<../modules/camPinHoles.scad>;
+//include<../modules/camPinHoles.scad>;
 
 module tCam() {
     // adjustable tension cams 
     difference() {
             linear_extrude(camHeight - (camClearance + tolerance))
-            import("../../SVG/TCam.svg");
+            import("../../SVG/TCam_mk2.svg");
         
         translate([nutCoords[0] - tCamCoords[0], nutCoords[1] - tCamCoords[1], camHeight - (1 + tolerance*2) - nutHeight])
             linear_extrude(nutHeight + tolerance*2 + 1)
-            import("../../SVG/Hex4_40.svg");    
+            import("../../SVG/Hex_mk2.svg");    
     }
 }
 
