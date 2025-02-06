@@ -27,19 +27,12 @@ tolerance = 0.2; // allows a bit of room for parts that have to fit together; ad
 // Hardware dimensions 
 // (actual measurements, no tolerances)
 
-//// - pan head 6-32 machine screws
-//screwDiam = 3.45;
-//screwHeight = 18;
-//screwHeadDiam = 6.75 + tolerance * 2; 
-//screwHeadHeight = 2.55 + tolerance * 2;
-//nutWidth = 7.9;
-
-
-
-screwDiam = 2.79;
-screwHeight = 15;
-screwHeadHeight = 2.41 + tolerance * 2;
-screwHeadDiam = 5.21 + tolerance * 2;
+// - pan head 6-32 machine screws
+screwDiam = 3.45;
+screwHeight = 18;
+screwHeadDiam = 6.75 + tolerance * 2; 
+screwHeadHeight = 2.55 + tolerance * 2;
+nutWidth = 7.9;
 
 // - pan head 4-40 machine screws (M3 should also work where these are used)
 screwDiamSm = 2.79;
@@ -47,8 +40,6 @@ screwHeightSm = 14.62;
 screwHeadHeightSm = 2.41 + tolerance * 2;
 screwHeadDiamSm = 5.21 + tolerance * 2;
 nutHeight = 2.8;
-
-// TODO: look for metric hardware alternatives while abroad 
 
 // ---
 // Needle dimensions
