@@ -38,7 +38,7 @@ In this project, you will find several types of file:
 
 ## How to build the machine
 
-~~[A video demonstration is also available]().~~ Coming soon!
+[A video demonstration is also available](https://youtu.be/eFesPhYR8KI).
 
 ### Printing and supplies
 
