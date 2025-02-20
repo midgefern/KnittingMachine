@@ -73,6 +73,7 @@ You will also need:
     * #6-32 x 1/2", 8 (for carriage rests/clamps)
 - screwdriver
 - scissors or utility knife (to cut foam weatherstrip)
+- NOTE: I have been using a 5/16" x 3.5" metal eyebolt in the clamp; the eye is easy to grab and turn without a tool, but not essential. You will need a longer bolt if you choose the "deep" clamp option. If you choose to generate 3D printed bolts for your clamp with an external library, a bolt with an 8mm OD and 12mm nut (between flats) should fit the other connected parts.
 
 For each needlebed:
 
