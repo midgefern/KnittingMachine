@@ -30,15 +30,15 @@ tolerance = 0.2; // allows a bit of room for parts that have to fit together; ad
 // - pan head 6-32 machine screws
 screwDiam = 3.45;
 screwHeight = 18;
-screwHeadDiam = 6.75 + tolerance * 2; 
+screwHeadDiam = 6 + tolerance * 2; 
 screwHeadHeight = 2.55 + tolerance * 2;
 nutWidth = 7.9;
 
 // - pan head 4-40 machine screws (M3 should also work where these are used)
-screwDiamSm = 2.79;
+screwDiamSm = 2.95;
 screwHeightSm = 14.62;
 screwHeadHeightSm = 2.41 + tolerance * 2;
-screwHeadDiamSm = 5.21 + tolerance * 2;
+screwHeadDiamSm = 5.5 + tolerance * 2;
 nutHeight = 2.8;
 
 // ---
