@@ -35,7 +35,7 @@ screwHeadHeight = 2.55 + tolerance * 2;
 nutWidth = 7.9;
 
 // - pan head 4-40 machine screws (M3 should also work where these are used)
-screwDiamSm = 2.79;
+screwDiamSm = 2.95;
 screwHeightSm = 14.62;
 screwHeadHeightSm = 2.41 + tolerance * 2;
 screwHeadDiamSm = 5.21 + tolerance * 2;
